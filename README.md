@@ -1,10 +1,5 @@
 # SSI Service Admin README
 
-Congrats, project leads! You got a new project to grow!
-
-This stub is meant to help you form a strong community around your work. It's yours to adapt, and may 
-diverge from this initial structure. Just keep the files seeded in this repo, and the rest is yours to evolve! 
-
 ## Getting Started
 
 To get started, clone the repo locally and update the [SSI Service](https://github.com/TBD54566975/ssi-service) submodule:
@@ -43,14 +38,26 @@ To run both UI and SSI Service
 
 ## Introduction
 
-Orient users to the project here. This is a good place to start with an assumption
-that the user knows very little - so start with the Big Picture and show how this
-project fits into it. It may be good to reference/link the broader architecture in the
-`collaboration` repo or the developer site here.
+The SSI Admin UI is a GUI for TBD's [SSI Service](https://github.com/TBD54566975/ssi-service). The goal is to provide a visual way to interact with the Verifiable Credential ecosystem via the SSI Service, sans a CLI. The eventual aim is to abstract away as much noise as is reasonable, which means setting a few opiniated defaults throughout the journey. 
 
-Then maybe a dive into what this project does.
+The main SSI user flows the Admin UI sets out to support are:
+- Create and manage Decentralized IDs
+- Create and manage Schemas
+- Issue, verify, and manage Verifiable Credentials
+- Create and manage Credential Manifests
+- Create and manage Issuance Templates
+- Review, accept, or deny Applications for Credentials
+- Create and manage Presentation Definitions
+- Review, accept, or deny Presentation Submissions
 
-Diagrams and other visuals are helpful here. Perhaps code snippets showing usage.
+Here are a few visual examples of the UX decision trees:
+
+<img width="1160" alt="Screenshot 2023-03-06 at 11 31 29 AM" src="https://user-images.githubusercontent.com/102400653/223213348-56486e42-37e4-4fa3-a939-107918572024.png">
+<img width="1147" alt="Screenshot 2023-03-06 at 11 31 38 AM" src="https://user-images.githubusercontent.com/102400653/223213363-53344583-4825-49a3-9ebd-6c29981f5620.png">
+<img width="1355" alt="Screenshot 2023-03-06 at 11 31 44 AM" src="https://user-images.githubusercontent.com/102400653/223213368-d20e3ec3-b64e-42cc-a1eb-ccab230df2f8.png">
+<img width="1342" alt="Screenshot 2023-03-06 at 11 31 51 AM" src="https://user-images.githubusercontent.com/102400653/223213376-7df6cb26-18b0-46ed-92e4-e2f0314ef0c7.png">
+
+
 
 Project leads should complete, alongside this `README`:
 * [CODEOWNERS](./CODEOWNERS) - set project lead(s)
