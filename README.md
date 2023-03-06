@@ -30,10 +30,10 @@ Open the project in [localhost:3000](http://localhost:3000)
 #### `npm start` or `npm dev`
 To run in development mode (with mocks only)
 
-### `npm run service`
+#### `npm run service`
 To run the SSI Service only with Docker running (no UI)
 
-### `npm run start:ssi`
+#### `npm run start:ssi`
 To run both UI and SSI Service
 
 ## Introduction
