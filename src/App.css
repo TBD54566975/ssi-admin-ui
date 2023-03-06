@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;700&display=swap');
 
 :root {
-  --color-primary: rgb(255, 255, 255);
+  --color-primary: rgb(250, 250, 255);
   --color-complement-values: 0, 0, 0;
   --color-complement: rgba(var(--color-complement-values));
   --color-complement-5: rgba(var(--color-complement-values), 0.05);
   --color-complement-10: rgba(var(--color-complement-values), 0.1);
   --color-complement-50: rgba(var(--color-complement-values), 0.5);
+  --color-complement-60: rgba(var(--color-complement-values), 0.6);
   --color-tbd-yellow: rgba(255, 236, 26);
   --color-tbd-blue: rgba(36, 242, 255);
   --color-tbd-purple: rgba(154, 26, 255);
@@ -15,6 +16,8 @@
   --color-warn: rgb(247, 176, 91);
   --color-danger: rgb(199 69 66);
   --color-success: rgb(93, 162, 113);
+  --border-faint: 1px solid var(--color-complement-5);
+  --border-faint-thick: 2px solid var(--color-complement-5);
   --border-light: 1px solid var(--color-complement-10);
   --border-light-thick: 2px solid var(--color-complement-10);
   --border-medium: 1px solid var(--color-complement-50);
@@ -28,10 +31,11 @@
   --spacing-unit: 1rem;
   --tbd-mono: 'IBM Plex Mono', monospace;
   --tbd-sans: 'IBM Plex Sans', sans-serif;
-  --font-size-xs: 0.6rem;
-  --font-size-sm: 0.7rem;
-  --font-size-md: 0.8rem;
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.8rem;
+  --font-size-md: 0.9rem;
   --box-shadow-complement: rgba(var(--color-complement-values), 0.05) 0px 16px 16px -12px, rgba(var(--color-complement-values), 0.1) 0px 8px 16px -8px;
+  --box-shadow-complement-lg: rgba(var(--color-complement-values), 0.05) 0px 16px 16px -12px, rgba(var(--color-complement-values), 0.1) 0px 8px 48px -8px;
   --box-shadow-tbd-purple: rgba(var(--color-tbd-purple-tint-values), 0.25) 0px 16px 16px -12px, rgba(var(--color-complement-values), 0.1) 0px 8px 16px -8px;
 }
 
@@ -42,13 +46,13 @@
 }
 
 html {
-  font-size: 20px;
-  line-height: 1.25;
+  font-size: 112.5%;
+  background: var(--color-primary);
+  line-height: 1.4;
 }
 
 body {
   font-family: var(--tbd-sans);
-  /* background: linear-gradient(210deg, rgb(154 26 255 / 0.05), rgb(154 26 255 / 0.025)); */
 }
 
 body, #root, .App {

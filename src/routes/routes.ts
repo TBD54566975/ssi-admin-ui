@@ -3,7 +3,7 @@ import Applications from "../pages/Applications";
 import CreateSchema from "../pages/CreateSchema";
 import Credentials from "../pages/Credentials";
 import CredentialTemplates from "../pages/CredentialTemplates";
-import Dashboard from "../pages/Dashboard";
+import Overview from "../pages/Overview";
 import DecentralizedIDs from "../pages/DecentralizedIDs";
 import IssueCredential from "../pages/IssueCredential";
 import PresentationDefinitions from "../pages/PresentationDefinitions";
@@ -19,7 +19,7 @@ export const routeConfig = [
     },
     {
         path: 'overview',
-        component: Dashboard,
+        component: Overview,
         custom: {
             title: 'Overview'
         }

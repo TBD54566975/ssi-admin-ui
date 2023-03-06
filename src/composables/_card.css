@@ -1,0 +1,32 @@
+.card-container {
+    box-shadow: var(--box-shadow-complement-lg);
+    border-radius: calc(var(--spacing-unit) * 0.5);
+    padding: calc(var(--spacing-unit) * 2) var(--spacing-unit);
+    max-width: 300px;
+}
+
+.card-container p {
+    color: var(--color-complement-60);
+}
+
+.link-with-icon {
+    display: flex;
+    gap: calc(var(--spacing-unit) * 0.5);
+    align-items: center;
+}
+
+.card-icon {
+    --size: calc(var(--spacing-unit) * 4);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100px;
+    margin: 0 var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 0.5);
+    background: var(--color-complement);
+}
+
+.card-icon img {
+    --size: 100%;
+    width: var(--size);
+    height: var(--size);
+}
