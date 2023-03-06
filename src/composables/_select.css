@@ -1,0 +1,43 @@
+.field-container {
+  width: 100%;
+  margin-bottom: var(--spacing-unit);
+}
+.field-container > label {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+  display: inline-block;
+}
+select,
+input:is(
+  [type="text"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="email"],
+  [type="month"],
+  [type="password"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="url"],
+  [type="week"]
+),
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  appearance: none;
+  border: var(--border-light);
+  border-radius: calc(var(--spacing-unit) * 0.125);
+}
+.select-area {
+  position: relative;
+}
+.select-icon {
+  position: absolute;
+  top: 0;
+  right: calc(var(--spacing-unit) / 2);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

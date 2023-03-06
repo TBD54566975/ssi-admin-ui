@@ -1,0 +1,17 @@
+.side-panel-container > aside.side-panel {
+    padding: 0;
+}
+.side-panel-container > .side-panel li > a {
+    display: block;
+    text-decoration: none;
+    padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+    border-left: var(--border-light-thick);
+    color: var(--color-complement-50);
+    font-weight: 500;
+    letter-spacing: -0.0125rem;
+}
+.side-panel-container > .side-panel li > a.active {
+    color: var(--color-tbd-purple);
+    border-left: var(--border-tbd-purple-thick);
+    font-weight: 600;
+}

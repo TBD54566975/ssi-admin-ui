@@ -1,0 +1,8 @@
+.group-inputs > .field-interactive-btn {
+    top: 8px;
+    position: relative;
+}
+
+.group-inputs > .field-interactive-btn:disabled {
+    visibility: hidden;
+}

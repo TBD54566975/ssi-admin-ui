@@ -1,9 +1,45 @@
-# $PROJECT_NAME README
+# SSI Service Admin README
 
 Congrats, project leads! You got a new project to grow!
 
 This stub is meant to help you form a strong community around your work. It's yours to adapt, and may 
 diverge from this initial structure. Just keep the files seeded in this repo, and the rest is yours to evolve! 
+
+## Getting Started
+
+To get started, clone the repo locally and update the [SSI Service](https://github.com/TBD54566975/ssi-service) submodule:
+
+### Update Submodules
+
+```
+git submodule update --init --recursive
+```
+
+### Install dependecies
+
+```
+npm i
+```
+
+### Run in development mode
+With Docker up and running, run the SSI Service and UI in development mode:
+
+```
+npm run start:ssi
+```
+
+Open the project in [localhost:3000](http://localhost:3000)
+
+### Available scripts
+
+#### `npm start` or `npm dev`
+To run in development mode (with mocks only)
+
+### `npm run service`
+To run the SSI Service only with Docker running (no UI)
+
+### `npm run start:ssi`
+To run both UI and SSI Service
 
 ## Introduction
 

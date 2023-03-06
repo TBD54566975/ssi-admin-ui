@@ -1,0 +1,56 @@
+.did-sample {
+    padding: calc(var(--spacing-unit) * 0.5);
+    border: var(--border-light);
+    display: flex;
+    flex-direction: column;
+}
+
+.did-sample pre {
+    font-family: var(--tbd-mono);
+    font-size: var(--font-size-xs);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: calc(var(--spacing-unit) * 0.5); 
+    margin: 0;
+}
+
+.did-sample.did-sample-download pre {
+    margin-top: 1rem;
+}
+
+.did-sample button {
+    min-width: 3rem;
+    margin: 0;
+    align-self: flex-end;
+}
+
+.btn-neutral {
+    background: var(--color-complement-10);
+    padding: 0.4rem;
+    border-radius: 0.25rem;
+    font-size: var(--font-size-xs);
+    height: min-content;
+}
+
+.btn-hover {
+    opacity: 0;
+    transition: ease-in-out 0.25s opacity;
+}
+
+.btn-hover:focus,
+.btn-neutral.btn-hover.btn-opaque,
+.did-sample:hover .btn-neutral.btn-hover,
+.code-sample:hover .btn-neutral.btn-hover {
+    opacity: 1;
+    transition: ease 0.5s opacity;
+}
+
+.output-menu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.did-sample > menu > li > .btn-outline {
+    margin: 0;
+}

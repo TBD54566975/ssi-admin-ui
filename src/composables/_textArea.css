@@ -1,0 +1,9 @@
+textarea {
+    resize: vertical;
+    font-family: var(--tbd-mono);
+    background: var(--color-complement-5);
+    color: var(--color-complement);
+    border-left: 2rem solid var(--color-complement-5);
+    line-height: 1.5;
+    font-size: var(--font-size-sm);
+}

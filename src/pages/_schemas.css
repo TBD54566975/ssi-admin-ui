@@ -1,0 +1,4 @@
+.group-inputs {
+    display: flex;
+    gap: var(--spacing-unit);
+}
