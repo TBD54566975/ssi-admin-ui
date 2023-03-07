@@ -1,24 +1,33 @@
-name: Cypress Tests
+name: Cypress Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  cypress-run:
+  cypress:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-            node-version: 18
-            cache: pnpm
-          - name: Install PNPM
-            run: npm i -g pnpm
-      - name: Install & Build
-        run: pnpm i  &&  pnpm build     
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
+          node-version: '18'
+
+      - name: Install ssi
+        run: git submodule update --init --recursive
+
+      - name: Install dependencies
+        run: npm i
+
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         with:
-          build: git submodule update --init --recursive && npm install 
+          browser: chrome
+          record: false
           start: npm run start:ssi
+          wait-on: 'http://localhost:3000'
