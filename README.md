@@ -2,14 +2,6 @@
 
 ## Getting Started
 
-To get started, clone the repo locally and update the [SSI Service](https://github.com/TBD54566975/ssi-service) submodule:
-
-### Update Submodules
-
-```
-git submodule update --init --recursive
-```
-
 ### Install dependecies
 
 ```
