@@ -1,9 +1,9 @@
 name: Cypress Test
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - '*'
 
 jobs:
   cypress:
