@@ -1,5 +1,4 @@
 import { Component, onMount } from "solid-js";
-import { mockDID } from "../mocks/didJson";
 import { generateQR } from "../utils/helpers";
 
 const QRCode: Component<{stringToGenerate: string}> = (props) => {
