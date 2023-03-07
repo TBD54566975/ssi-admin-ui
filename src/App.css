@@ -154,6 +154,11 @@ button {
 a.download-btn {
   font-size: var(--font-size-md);
   display: inline-block;
+  text-decoration: none;
+}
+
+a.download-btn.btn-primary {
+  color: var(--color-primary);
 }
 
 svg {

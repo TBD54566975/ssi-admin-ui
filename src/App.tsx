@@ -1,15 +1,13 @@
-import { Component, createSignal, For, on, onMount, Show } from 'solid-js';
-import { Router, useRoutes, A } from "@solidjs/router";
+import { Component, For, Show } from 'solid-js';
+import { useRoutes, Link } from "@solidjs/router";
 
-import logo from './logo.svg';
 import './App.css';
 import { routeConfig, routes } from './routes/routes';
 import InfoPanel from './components/InfoPanel';
-import NavSidebar from './components/NavSidebar';
 import Modal from './components/Modal';
 import { mockDID } from './mocks/didJson';
-import { getDIDAtPosition } from './stores/store';
-import { getDIDMethods } from './facades/decentralizedID.facade';
+import { getDIDAtPosition, setDID } from './stores/store';
+import { getDIDs } from './facades/decentralizedID.facade';
 
 
 const App: Component = () => {
@@ -17,6 +15,8 @@ const App: Component = () => {
 
   const hasDID = () => !!(getDIDAtPosition(0));
 
+  getDIDs('key').then(res => { if (res) setDID(res[0]) }).catch(e => console.error(e));
+  
   return (
     <div class="App">
       <header class="header">
@@ -25,9 +25,9 @@ const App: Component = () => {
             <For each={routeConfig.filter(route => route.custom)}>
               {(route) => 
                 <li>
-                  <A class="nav" href={route.path}>
+                  <Link class="nav" href={route.path}>
                     {route.custom?.title}
-                  </A>
+                  </Link>
                 </li>
               }
             </For>

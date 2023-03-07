@@ -11,7 +11,7 @@ export const [store, setStore] = createStore<any>({
   }
 });
 
-export const setDID = (DID: DIDDocument) => {
+export const setDID = (DID: DIDDocument | undefined) => {
   setStore('dids', (dids: DIDDocument[]) => [...dids, DID]);
 }
 
@@ -29,4 +29,4 @@ export const getDIDAtPosition = (index: number) => {
   return userDID()[index];
 }
 
-if (mockDID) setDID(mockDID);
+// if (mockDID) setDID(mockDID);

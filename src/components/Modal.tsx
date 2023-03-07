@@ -6,6 +6,10 @@ import { mockDID } from '../mocks/didJson';
 import Banner from '../composables/Banner';
 import { setDID } from '../stores/store';
 import { formatJSON } from '../utils/helpers';
+import { createDID, DIDDocument, DIDKeyType, getDID, getDIDs } from '../facades/decentralizedID.facade';
+import DownloadLink from '../composables/DownloadLink';
+import TextSample from '../composables/TextSample';
+import { storeKey } from '../facades/keyStore.facade';
 
 let warnings = [
     `Key rotation is not supported with <code>did:key</code> key type`,
@@ -15,6 +19,7 @@ let warnings = [
 
 const Modal: Component = () => {
 
+    let filePicker: HTMLInputElement | undefined;
 
     let onboardModal: HTMLDialogElement | undefined;
     const steps = [
@@ -39,7 +44,8 @@ const Modal: Component = () => {
         label: 'Success',
         description: 'Your Public DID will be used to issue and accept Verifiable Credentials.'
     }
-    const keyTypes = [
+
+    const keyTypeOptions: DIDKeyType[] = [
         'Ed25519',
         'X25519',
         'secp256k1',
@@ -48,13 +54,19 @@ const Modal: Component = () => {
         'P-384',
         'P-521',
         'RSA'
-    ].map(type => {
+    ]
+    const keyTypes = keyTypeOptions.map(type => {
         return {
             label: type,
             value: type
         }
     })
     const [currentStep, setCurrentStep] = createSignal(welcome);
+
+    // Before we set the store did, we will set the did temporarily here so that we can keep the modal up for one more informative slide
+    const [tempDID, setTempDID] = createSignal<DIDDocument | any>();
+
+    const [didKeyType, setDidKeyType] = createSignal<DIDKeyType>('Ed25519');
 
     const currentIndex = () => steps.indexOf(currentStep());
 
@@ -71,8 +83,41 @@ const Modal: Component = () => {
         }
     })
 
-    function done() {
-        setDID(mockDID);
+    function openFilePicker() {
+        filePicker?.click();
+    }
+
+    function importTempDID() {
+        if (filePicker && filePicker.files) {
+            let reader = new FileReader();
+            reader.readAsText(filePicker.files[0]);
+            reader.onload = (e) => {
+                if (typeof reader.result === 'string') {
+                    const { did, privateKeyBase58, keyType}: { did: DIDDocument, privateKeyBase58: string, keyType: string } = JSON.parse(reader.result)
+                    const keyStoreOptions = {
+                        id: did.id,
+                        controller: did.verificationMethod[0].controller,
+                        base58PrivateKey: privateKeyBase58,
+                        type: keyType
+                    };
+                    console.log(keyStoreOptions);
+                    storeKey(keyStoreOptions).then(res => console.log(res)).catch(e => console.error(e));
+                }
+            }
+        }
+        setCurrentStep(success);
+    }
+
+    function createTempDID() {
+        // create the did 
+        createDID('key', {
+            keyType: didKeyType(),
+        }).then(res => {setTempDID(res); console.log(tempDID())}).catch(e => console.error(e));
+    }
+
+    function setStoreDID() {
+        // set it in the store
+        setDID(tempDID().did)
     }
 
     return (
@@ -93,7 +138,6 @@ const Modal: Component = () => {
                             </For>
                         </ul>
                     </aside>
-                    {/* <NavSidebar navItems={steps.map(step => step.label)}></NavSidebar> */}
                 </Show>
             </div>
             <div class="dialog-content">
@@ -107,7 +151,8 @@ const Modal: Component = () => {
                                     <div class="btn-container-sm">
                                         <button onclick={() => setCurrentStep(steps[0])} class="btn btn-primary btn-full-w">Create new</button>
                                         <span class="or-divider">or</span>
-                                        <button onclick={() => setCurrentStep(success)} class="btn btn-outline btn-full-w">Import existing</button>
+                                        <input oninput={() => importTempDID()} ref={filePicker} class="display-none" type="file" accept=".json" />
+                                        <button onclick={() => openFilePicker()} class="btn btn-outline btn-full-w">Import existing</button>
                                     </div>
                                 </div>
                             </Match>
@@ -118,7 +163,7 @@ const Modal: Component = () => {
                                     <p>{success.description}</p>
                                     <OutputSample codeToDisplay={mockDID.id}/>
                                     <div class="btn-container-flex">
-                                        <button onclick={done} class="btn btn-primary">Done</button>
+                                        <button onclick={() => setDID(mockDID)} class="btn btn-primary">Done</button>
                                     </div>
                                 </div>
                             </Match>
@@ -131,13 +176,14 @@ const Modal: Component = () => {
                             <p>{currentStep().description}</p>
                             <Switch>
                                 <Match when={currentIndex() === 0}>
-                                    <Select options={keyTypes} label={"Key type"} name={"keyType"} firstIsDefault={true}/>
+                                    <Select handleEvent={(e) => {setDidKeyType(e.currentTarget.value as DIDKeyType)}} options={keyTypes} label={"Key type"} name={"keyType"} firstIsDefault={true}/>
                                 </Match>
                                 <Match when={currentIndex() === 1}>
                                     <Banner type="warn" message={warnings[2]} />
                                 </Match>
                                 <Match when={currentIndex() === 2}>
-                                    <OutputSample codeToDisplay={formatJSON(mockDID)} downloadFile="123"/>
+                                    <Banner type="success" message="Your DID was successfully imported" />
+                                    <TextSample textToDisplay={tempDID()?.did.id || 'Error fetching DID'} />
                                 </Match>
                             </Switch>
                             <div class="btn-container-flex">
@@ -146,13 +192,13 @@ const Modal: Component = () => {
                                 </Show>
                                 <Switch>
                                     <Match when={currentIndex() === 0}>
-                                    <button onclick={() => setCurrentStep(steps[currentIndex() + 1])} class="btn btn-primary">Generate</button>
+                                    <button onclick={() => {createTempDID(); setCurrentStep(steps[currentIndex() + 1])}} class="btn btn-primary">Generate</button>
                                     </Match>
-                                    <Match when={currentIndex() === 1}>
-                                    <a onclick={() => setCurrentStep(steps[currentIndex() + 1])} class="download-btn btn btn-primary" download="#">Download JSON</a>
+                                    <Match when={currentIndex() === 1 && tempDID()}>
+                                        <DownloadLink document={tempDID()} fileName={"did.json"} handleClick={() => {console.log(tempDID()); setCurrentStep(steps[currentIndex() + 1])}} displayText={"Download JSON"} />
                                     </Match>
                                     <Match when={currentIndex() === 2}>
-                                    <button onclick={done} class="btn btn-primary">Done</button>
+                                    <button onclick={setStoreDID} class="btn btn-primary">Done</button>
                                     </Match>
                                 </Switch>
 

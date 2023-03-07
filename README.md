@@ -27,7 +27,7 @@ Open the project in [localhost:3000](http://localhost:3000)
 
 ### Available scripts
 
-#### `npm start` or `npm dev`
+#### `npm start` or `npm run dev`
 To run in development mode (with mocks only)
 
 #### `npm run service`
