@@ -35,4 +35,3 @@ jobs:
           browser: chrome
           record: false
           start: npm run start:ssi
-          wait-on: 'http://localhost:3000'
