@@ -23,6 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm i
 
+      - name: Install PNPM
+        run: npm i -g pnpm
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v5
