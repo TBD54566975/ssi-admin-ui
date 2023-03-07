@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "cypress:open": "./node_modules/cypress/bin/cypress open",
-    "cypress:run": "./node_modules/cypress/bin/cypress open",
+    "cypress:run": "./node_modules/cypress/bin/cypress run",
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
