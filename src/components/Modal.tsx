@@ -4,9 +4,8 @@ import Select from '../composables/Select';
 import "./_modal.css";
 import { mockDID } from '../mocks/didJson';
 import Banner from '../composables/Banner';
-import { setDID } from '../stores/store';
-import { formatJSON } from '../utils/helpers';
-import { createDID, DIDDocument, DIDKeyType, getDID, getDIDs } from '../facades/decentralizedID.facade';
+import { getDIDAtPosition, setDID } from '../stores/store';
+import { createDID, DIDDocument, DIDKeyType } from '../facades/decentralizedID.facade';
 import DownloadLink from '../composables/DownloadLink';
 import TextSample from '../composables/TextSample';
 import { storeKey } from '../facades/keyStore.facade';
@@ -19,6 +18,8 @@ let warnings = [
 
 const Modal: Component = () => {
 
+    // hide Import DID button until able to explore did import flow
+    let showImportDID = false;
     let filePicker: HTMLInputElement | undefined;
 
     let onboardModal: HTMLDialogElement | undefined;
@@ -105,6 +106,7 @@ const Modal: Component = () => {
                 }
             }
         }
+        setTempDID(mockDID);
         setCurrentStep(success);
     }
 
@@ -150,9 +152,13 @@ const Modal: Component = () => {
                                     <p>{welcome.description}</p>
                                     <div class="btn-container-sm">
                                         <button onclick={() => setCurrentStep(steps[0])} class="btn btn-primary btn-full-w">Create new</button>
-                                        <span class="or-divider">or</span>
-                                        <input oninput={() => importTempDID()} ref={filePicker} class="display-none" type="file" accept=".json" />
-                                        <button onclick={() => openFilePicker()} class="btn btn-outline btn-full-w">Import existing</button>
+                                        { showImportDID && 
+                                            <> 
+                                                <span class="or-divider">or</span>
+                                                <input oninput={() => importTempDID()} ref={filePicker} hidden type="file" accept=".json" />
+                                                <button onclick={() => openFilePicker()} class="btn btn-outline btn-full-w">Import existing</button> 
+                                            </>
+                                        }
                                     </div>
                                 </div>
                             </Match>
@@ -161,9 +167,9 @@ const Modal: Component = () => {
                                     <h2>{success.label}</h2>
                                     <Banner type="success" message="Your DID was successfully imported" />
                                     <p>{success.description}</p>
-                                    <OutputSample codeToDisplay={mockDID.id}/>
+                                    <OutputSample codeToDisplay={getDIDAtPosition(0)?.id}/>
                                     <div class="btn-container-flex">
-                                        <button onclick={() => setDID(mockDID)} class="btn btn-primary">Done</button>
+                                        <button onclick={setStoreDID} class="btn btn-primary">Done</button>
                                     </div>
                                 </div>
                             </Match>
@@ -182,7 +188,7 @@ const Modal: Component = () => {
                                     <Banner type="warn" message={warnings[2]} />
                                 </Match>
                                 <Match when={currentIndex() === 2}>
-                                    <Banner type="success" message="Your DID was successfully imported" />
+                                    <Banner type="success" message="Your DID is successfully created." />
                                     <TextSample textToDisplay={tempDID()?.did.id || 'Error fetching DID'} />
                                 </Match>
                             </Switch>
