@@ -5,7 +5,6 @@ import './App.css';
 import { routeConfig, routes } from './routes/routes';
 import InfoPanel from './components/InfoPanel';
 import Modal from './components/Modal';
-import { mockDID } from './mocks/didJson';
 import { getDIDAtPosition, setDID } from './stores/store';
 import { getDIDs } from './facades/decentralizedID.facade';
 
@@ -36,7 +35,7 @@ const App: Component = () => {
       </header>
       <main class="main-content">
         <Routes />
-        <InfoPanel did={mockDID.id} />
+        <InfoPanel did={getDIDAtPosition(0)?.id} />
       </main>
       <Show when={!hasDID()}>
         <Modal />
