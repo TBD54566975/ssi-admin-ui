@@ -19,7 +19,8 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run server
-      run: npm run service:ssi &
+      run: npm run start:ssi & while ! nc -z localhost 3000; do sleep 1; done
+      
     - name: Run Playwright tests
       run: npm run e2e-tests
     - uses: actions/upload-artifact@v3
