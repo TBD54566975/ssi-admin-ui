@@ -7,8 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "service": "cd ssi-service-compose && docker-compose -f ssi-service-compose.yml up",
-    "start:ssi": "npm run service & cd ../.. & npm run start"
+    "service": "docker-compose -f ssi-service-compose/ssi-service-compose.yml up",
+    "start:ssi": "npm run service & cd ../.. & npm run start",
+    "reset-service": "docker-compose -f ssi-service-compose/ssi-service-compose.yml down"
   },
   "license": "MIT",
   "devDependencies": {

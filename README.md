@@ -28,6 +28,9 @@ To run the SSI Service only with Docker running (no UI)
 #### `npm run start:ssi`
 To run both UI and SSI Service
 
+#### `npm run reset-service`
+To remove/reset Docker containers
+
 ## Introduction
 
 The SSI Admin UI is a GUI for TBD's [SSI Service](https://github.com/TBD54566975/ssi-service). The goal is to provide a visual way to interact with the Verifiable Credential ecosystem via the SSI Service, sans a CLI. The eventual aim is to abstract away as much noise as is reasonable, which means setting a few opiniated defaults throughout the journey. 

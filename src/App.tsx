@@ -14,7 +14,11 @@ const App: Component = () => {
 
   const hasDID = () => !!(getDIDAtPosition(0));
 
-  getDIDs('key').then(res => { if (res) setDID(res[0]) }).catch(e => console.error(e));
+  getDIDs('key').then(res => { 
+    if (res) {
+      setDID(res[0]) 
+    }
+  }).catch(e => console.error(e));
   
   return (
     <div class="App">
