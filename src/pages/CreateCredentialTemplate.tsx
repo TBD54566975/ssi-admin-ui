@@ -3,8 +3,8 @@ import NavSidebar from "../components/NavSidebar";
 import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
-import { mockDID } from "../mocks/didJson";
 import { mockSchemaResponse } from "../mocks/schemaJson";
+import { getDIDAtPosition } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 
 const schemaProps = getDisplayProperties(mockSchemaResponse.schema.schema);
@@ -48,7 +48,7 @@ const CreateCredentialTemplate: Component = () => {
                         <TextInput label={"Description"} name={"description"} placeholder={"My awesome template for auto-generating a Verifiable Credential"}/>
                     </div>
                     <div>
-                        <Select label={"Issuer"} name={"issuer"} options={[{label: mockDID.id, value: mockDID.id}]} />
+                        <Select label={"Issuer"} name={"issuer"} options={[{label: getDIDAtPosition(0)?.id, value: getDIDAtPosition(0)?.id}]} />
                     </div>
                 </div>
                 <div>

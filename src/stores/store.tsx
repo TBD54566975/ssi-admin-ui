@@ -1,7 +1,7 @@
 import { Accessor, createMemo, createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 import { DIDDocument } from "../facades/decentralizedID.facade";
-import { mockDID } from "../mocks/didJson";
+// import { mockDID } from "../mocks/didJson";
 
 export const [store, setStore] = createStore<any>({
   dids: [],
@@ -21,7 +21,7 @@ createRoot(() => {
    userDID = createMemo(() => store.dids);
 });
 
-export const getDIDs = () => {
+export const getUserDIDs = () => {
   return userDID();
 }
 

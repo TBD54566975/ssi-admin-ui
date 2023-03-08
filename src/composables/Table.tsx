@@ -1,9 +1,4 @@
 import { Component, For, onMount } from "solid-js";
-import Icon from "../icons/Icon";
-import { mockDID } from "../mocks/didJson";
-import { formatJSON } from "../utils/helpers";
-import OutputSample from "./OutputSample";
-import QRCode from "./QRCode";
 import "./_table.css";
 
 const Table: Component<{data: Array<{[key: string]: any}>}> = (props) => {

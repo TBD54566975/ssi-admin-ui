@@ -5,7 +5,6 @@ import './App.css';
 import { routeConfig, routes } from './routes/routes';
 import InfoPanel from './components/InfoPanel';
 import Modal from './components/Modal';
-import { mockDID } from './mocks/didJson';
 import { getDIDAtPosition, setDID } from './stores/store';
 import { getDIDs } from './facades/decentralizedID.facade';
 
@@ -15,7 +14,11 @@ const App: Component = () => {
 
   const hasDID = () => !!(getDIDAtPosition(0));
 
-  getDIDs('key').then(res => { if (res) setDID(res[0]) }).catch(e => console.error(e));
+  getDIDs('key').then(res => { 
+    if (res) {
+      setDID(res[0]) 
+    }
+  }).catch(e => console.error(e));
   
   return (
     <div class="App">
@@ -36,7 +39,7 @@ const App: Component = () => {
       </header>
       <main class="main-content">
         <Routes />
-        <InfoPanel did={mockDID.id} />
+        <InfoPanel did={getDIDAtPosition(0)?.id} />
       </main>
       <Show when={!hasDID()}>
         <Modal />

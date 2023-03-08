@@ -1,22 +1,12 @@
-import { Component, createSignal, For, Match, Switch } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Component } from 'solid-js';
 import NavSidebar from '../components/NavSidebar';
-import Checkbox from '../composables/Checkbox';
-import GroupInput from '../composables/GroupInput';
-import Select from '../composables/Select';
 import Table from '../composables/Table';
-import TextArea from '../composables/TextArea';
-import TextInput from '../composables/TextInput';
-import Icon from '../icons/Icon';
-import { mockDID } from '../mocks/didJson';
 import { mockSchemaResponse } from '../mocks/schemaJson';
-import { formatJSON } from '../utils/helpers';
 import "./_schemas.css";
 
 const pageTitle = 'Schemas';
 
 const Schemas: Component = () => {
-    let outputModal: any;
 
     return (
         <article>

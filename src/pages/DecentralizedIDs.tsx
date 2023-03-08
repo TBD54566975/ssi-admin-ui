@@ -1,13 +1,12 @@
-import { Component, onMount } from 'solid-js';
+import { Component } from 'solid-js';
 import NavSidebar from '../components/NavSidebar';
 import OutputSample from '../composables/OutputSample';
 import QRCode from '../composables/QRCode';
-import Select from '../composables/Select';
 import Table from '../composables/Table';
 import TextSample from '../composables/TextSample';
 import Icon from '../icons/Icon';
-import { mockDID } from '../mocks/didJson';
-import { formatJSON, generateQR } from '../utils/helpers';
+import { getDIDAtPosition } from '../stores/store';
+import { formatJSON } from '../utils/helpers';
 import './_decentralizedIDs.css';
 
 const pageTitle = 'Decentralized IDs';
@@ -34,10 +33,12 @@ const DecentralizedIDs: Component = () => {
                         <Icon name="close"></Icon>
                     </button>
                 </div>
+                {getDIDAtPosition(0) && 
                 <div>
-                    <OutputSample codeToDisplay={formatJSON(mockDID)} downloadFile="#"></OutputSample>
-                    <QRCode stringToGenerate={JSON.stringify(mockDID)} />
+                    <OutputSample codeToDisplay={formatJSON(getDIDAtPosition(0))} downloadFile="#"></OutputSample>
+                    <QRCode stringToGenerate={JSON.stringify(getDIDAtPosition(0))} />
                 </div>
+                }
             </dialog>
         </>
     )
@@ -49,7 +50,7 @@ const DecentralizedIDs: Component = () => {
                 <h1>{pageTitle}</h1>
                 <div>
                     <h3>All DIDs</h3>
-                    <Table data={[{'id': <TextSample textToDisplay={mockDID.id} />, 'actions': action}]} />
+                    <Table data={[{'id': <TextSample textToDisplay={getDIDAtPosition(0)?.id} />, 'actions': action}]} />
                 </div>
             </div>
         </article>

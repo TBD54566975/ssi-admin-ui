@@ -1,13 +1,11 @@
-import { Component, createSignal, JSX, Match, Show, Switch } from "solid-js";
-import { createStore } from "solid-js/store";
+import { Component, createSignal, Match, Show, Switch } from "solid-js";
 import NavSidebar from "../components/NavSidebar";
-import Checkbox from "../composables/Checkbox";
 import GroupInput from "../composables/GroupInput";
 import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
-import { mockDID } from "../mocks/didJson";
 import { mockSchemaRequest } from "../mocks/schemaJson";
+import { getDIDAtPosition } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 
 const CreateSchema: Component = () => {
@@ -42,7 +40,7 @@ const CreateSchema: Component = () => {
                         <TextInput label={"Schema name"} name={"schemaName"} placeholder={"My Awesome Schema"}/>
                     </div>
                     <div>
-                        <Select options={[{label: mockDID.id, value: mockDID.id}]} label={"Author"} name={"author"}/>
+                        <Select options={[{label: getDIDAtPosition(0)?.id, value: getDIDAtPosition(0)?.id}]} label={"Author"} name={"author"}/>
                     </div>
                     <div>
                         <TextInput label={"Schema description"} name={"schemaDescription"} placeholder={"Schema to be used for an Awesome Verifiable Credential"}/>

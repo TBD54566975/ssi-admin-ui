@@ -3,8 +3,8 @@ import NavSidebar from "../components/NavSidebar";
 import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
-import { mockDID } from "../mocks/didJson";
 import { mockSchemaResponse } from "../mocks/schemaJson";
+import { getDIDAtPosition } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 
 
@@ -31,7 +31,7 @@ const IssueCredential: Component = () => {
             <div class="inner-content">
                 <h1>Issue a Credential</h1>
                 <div>
-                    <Select label={"Issuer"} options={[{label: mockDID.id, value: mockDID.id}]} name={"issuer"}/>
+                    <Select label={"Issuer"} options={[{label: getDIDAtPosition(0)?.id, value: getDIDAtPosition(0)?.id}]} name={"issuer"}/>
                 </div>
                 <div>
                     <TextInput label={"Recipient"} name={"subject"} placeholder={"did:key:3x4mp73"}></TextInput>

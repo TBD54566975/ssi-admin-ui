@@ -3,7 +3,6 @@ import NavSidebar from '../components/NavSidebar';
 import Table from '../composables/Table';
 import TextSample from '../composables/TextSample';
 import { mockCredential } from '../mocks/credentialJson';
-import { mockDID } from '../mocks/didJson';
 import { mockSchemaResponse } from '../mocks/schemaJson';
 
 const pageTitle = 'Credentials';
