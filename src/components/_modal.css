@@ -17,11 +17,11 @@
 .modal-steps li.active {
     border-left: var(--border-medium-thick);
     color: var(--color-complement);
-    font-weight: 500;
+    font-weight: 600;
 }
 .modal-steps li.completed {
     color: var(--color-complement);
-    font-weight: 500;
+    font-weight: 600;
 }
 .dialog-container {
     width: 100dvw;

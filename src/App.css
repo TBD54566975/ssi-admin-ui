@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400|IBM+Plex+Mono:400');
 
 :root {
   --color-primary: rgb(250, 250, 255);
@@ -48,11 +48,11 @@
 html {
   font-size: 112.5%;
   background: var(--color-primary);
-  line-height: 1.4;
 }
 
 body {
   font-family: var(--tbd-sans);
+  line-height: 1.75;
 }
 
 body, #root, .App {
@@ -64,17 +64,39 @@ body, #root, .App {
   flex-direction: column;
 }
 
+p {
+  margin-bottom: var(--spacing-unit);
+}
+
+h1, h2, h3, h4, h5 {
+  margin: calc(var(--spacing-unit) * 3) 0 calc(var(--spacing-unit) * 1.38);
+  font-family: var(--tbd-mono);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 4.209rem;
+}
+
+h2 {font-size: 3.157rem;}
+
+h3 {font-size: 2.369rem;}
+
+h4 {font-size: 1.777rem;}
+
+h5 {font-size: 1.333rem;}
+
+small, .text_small {
+  font-size: 0.75rem;
+}
+
 ul, ol, menu {
   list-style: none;
   margin-block: 0;
   margin-inline: 0;
   padding-block: 0;
-}
-
-h1 {
-  font-size: 3.5rem;
-  margin-block-start: 0;
-  margin-inline-start: 0;
 }
 
 aside.side-panel {
@@ -91,7 +113,7 @@ aside.side-panel h2 {
 aside.side-panel h3,
 table th {
   font-size: var(--font-size-md);
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -105,7 +127,7 @@ input[type="checkbox"] ~ label {
 a:not(.nav, [download]) {
   color: var(--color-tbd-purple);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 button {
@@ -117,7 +139,7 @@ button {
 
 .btn {
   border-radius: 0.25rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: var(--spacing-unit) 0;
   padding: 0.5rem 0.75rem;
 }
@@ -188,7 +210,7 @@ svg {
   gap: calc(var(--spacing-unit) * 0.5);
   padding: calc(var(--spacing-unit) * 1) var(--spacing-unit);
   font-size: var(--font-size-md);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.0125rem;
   border-bottom: var(--border-light);
 }

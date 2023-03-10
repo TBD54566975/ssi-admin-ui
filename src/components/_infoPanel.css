@@ -24,7 +24,7 @@
 
 .info-panel h2 {
     font-size: var(--font-size-xs);
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-tbd-purple);
 }
 
@@ -38,7 +38,7 @@
 .info-panel h4 {
     font-size: var(--font-size-xs);
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     margin-block: 0;
     margin-top: calc(var(--spacing-unit) * 1.5);
     margin-bottom: calc(var(--spacing-unit) * 0.25);
