@@ -47,7 +47,8 @@ The main SSI user flows the Admin UI sets out to support are:
 
 Here are a few visual examples of the UX decision trees:
 
-<img width="1160" alt="Screenshot 2023-03-06 at 11 31 29 AM" src="https://user-images.githubusercontent.com/102400653/223213348-56486e42-37e4-4fa3-a939-107918572024.png">
+<img width="779" alt="Screenshot 2023-03-15 at 12 51 12 PM" src="https://user-images.githubusercontent.com/102400653/225426694-01d9153f-7e06-447c-b635-8b3ecccbdace.png">
+<img width="733" alt="Screenshot 2023-03-15 at 12 51 15 PM" src="https://user-images.githubusercontent.com/102400653/225426701-24ebfde0-0fd3-4a5e-9631-6fcab148ea5e.png">
 <img width="1147" alt="Screenshot 2023-03-06 at 11 31 38 AM" src="https://user-images.githubusercontent.com/102400653/223213363-53344583-4825-49a3-9ebd-6c29981f5620.png">
 <img width="1355" alt="Screenshot 2023-03-06 at 11 31 44 AM" src="https://user-images.githubusercontent.com/102400653/223213368-d20e3ec3-b64e-42cc-a1eb-ccab230df2f8.png">
 <img width="1342" alt="Screenshot 2023-03-06 at 11 31 51 AM" src="https://user-images.githubusercontent.com/102400653/223213376-7df6cb26-18b0-46ed-92e4-e2f0314ef0c7.png">
