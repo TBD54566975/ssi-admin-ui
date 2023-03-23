@@ -50,7 +50,7 @@ export const getDIDAtPosition = (index: number) => {
 export const setStoreManifests = (manifests: ManifestOptions[]) => {
   let manifestSet: any[] = [];
   if (manifests?.length) {
-    manifestSet = [...manifestSet, manifests]
+    manifestSet = [...manifestSet, ...manifests]
   }
   setStore('manifests', (prevManifests: ManifestOptions[]) => [...prevManifests, ...manifestSet]);
 }

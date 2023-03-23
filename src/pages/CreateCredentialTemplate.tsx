@@ -441,7 +441,9 @@ const CreateCredential: Component = () => {
                 const entry = transformEntry((formValues() as any), result.schemaID, result.presentationDefinition);
                 return createManifest(entry);
             }).then(res => {
-                console.log(res)
+                if (res.credential_manifest) {
+                    setStoreManifests([res.credential_manifest]);
+                }
             }).catch(e => console.error(e));
 
             closeModal();

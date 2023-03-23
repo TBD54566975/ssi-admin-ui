@@ -48,3 +48,7 @@ dialog {
     padding-right: 4rem;
 }
 
+.data-table tr > td:not(:first-child) {
+    width: 50%;
+}
+
