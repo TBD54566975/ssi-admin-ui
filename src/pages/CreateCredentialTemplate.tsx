@@ -442,7 +442,7 @@ const CreateCredential: Component = () => {
                 return createManifest(entry);
             }).then(res => {
                 if (res.credential_manifest) {
-                    setStoreManifests([res.credential_manifest]);
+                    setStoreManifests([res]);
                 }
             }).catch(e => console.error(e));
 
