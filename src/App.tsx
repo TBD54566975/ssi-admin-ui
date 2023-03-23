@@ -1,51 +1,58 @@
-import { Component, For, Show } from 'solid-js';
-import { useRoutes, Link } from "@solidjs/router";
+import { Component, createSignal, For, Show } from 'solid-js';
+import { useRoutes, Link, useRouteData, useNavigate, NavLink } from "@solidjs/router";
 
 import './App.css';
-import { routeConfig, routes } from './routes/routes';
+import { routeConfig, routesForNavbar } from './routes/routes';
 import InfoPanel from './components/InfoPanel';
 import Modal from './components/Modal';
-import { getDIDAtPosition, setDID } from './stores/store';
+import { getDIDAtPosition, setStoreDIDs } from './stores/store';
 import { getDIDs } from './facades/decentralizedID.facade';
 
 
+
 const App: Component = () => {
-  const Routes = useRoutes(routes);
 
-  const hasDID = () => !!(getDIDAtPosition(0));
+  const navigate = useNavigate();
 
-  getDIDs('key').then(res => { 
+  getDIDs().then(res => { 
     if (res) {
-      setDID(res[0]) 
+        setStoreDIDs(res);
     }
-  }).catch(e => console.error(e));
-  
+    if(!getDIDAtPosition(0)) {
+        navigate('/set-did', { replace: true });
+    } else {
+        navigate('/', { replace: true });
+    }
+  }).catch(e => {
+    if(!getDIDAtPosition(0)) {
+        navigate('/set-did', { replace: true });
+    }
+  });
+
+  const Routes = useRoutes(routeConfig);
   return (
     <div class="App">
       <header class="header">
-        <nav class="site-header">
-          <ul>
-            <For each={routeConfig.filter(route => route.custom)}>
-              {(route) => 
-                <li>
-                  <Link class="nav" href={route.path}>
-                    {route.custom?.title}
-                  </Link>
-                </li>
-              }
-            </For>
-          </ul>
-        </nav>
+          <nav class="site-header">
+              <ul>
+                  <For each={routesForNavbar}>
+                      {(route) => 
+                          <li>
+                              <NavLink class="nav" href={route.path}>
+                                  {route.custom?.title}
+                              </NavLink>
+                          </li>
+                      }
+                  </For>
+              </ul>
+          </nav>
       </header>
       <main class="main-content">
-        <Routes />
-        <InfoPanel did={getDIDAtPosition(0)?.id} />
+          <Routes />
+          {/* <InfoPanel did={getDIDAtPosition(0)?.id} /> */}
       </main>
-      <Show when={!hasDID()}>
-        <Modal />
-      </Show>
-    </div>
-  );
+  </div>
+  )
 };
 
 export default App;
