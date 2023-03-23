@@ -6,7 +6,7 @@ const ResolveDID: Component = () => {
     let dialog: HTMLDialogElement | undefined;
     return (
         <article>
-            <NavSidebar navItems={[{path: '/decentralized-identities', title: 'DIDs'}, {path: '/decentralized-identities/resolve-did', title: 'Resolve a DID'}]}/>
+            <NavSidebar navItems={[{path: '/d-id', title: 'DIDs'}, {path: '/d-id/resolve-did', title: 'Resolve a DID'}]}/>
             <div class="inner-content">
                 <h1>Resolve a Decentralized ID</h1>
                 <p>Confirm details such as validity and status of a Decentralized Identifier.</p>
