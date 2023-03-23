@@ -20,8 +20,6 @@ const App: Component = () => {
     }
     if(!getDIDAtPosition(0)) {
         navigate('/set-did', { replace: true });
-    } else {
-        navigate('/', { replace: true });
     }
   }).catch(e => {
     if(!getDIDAtPosition(0)) {

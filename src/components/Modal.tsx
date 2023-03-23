@@ -20,7 +20,6 @@ import Key from '../assets/img/key-black.svg';
 import Password from '../assets/img/password-black.svg';
 import Lock from '../assets/img/lock-black.svg';
 import CreateDID from './CreateDID';
-import { Navigate, useNavigate, useRouteData } from '@solidjs/router';
 
 let warnings = [
     `Key rotation is not supported with <code>did:key</code> key type`,
@@ -148,12 +147,6 @@ const Modal: Component = () => {
     function setStoreDID() {
         // set it in the store
         setStoreDIDs([tempDID().did])
-    }
-
-    const navigate = useNavigate();
-
-    if(getDIDAtPosition(0)) {
-        navigate('/')
     }
 
     return (
