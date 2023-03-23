@@ -9,7 +9,7 @@
     "serve": "vite preview",
     "service": "docker-compose -f ssi-service-compose/ssi-service-compose.yml up",
     "start:ssi": "npm run service & npm run start",
-    "reset-service": "docker-compose -f ssi-service-compose/ssi-service-compose.yml down",
+    "reset:ssi": "docker-compose -f ssi-service-compose/ssi-service-compose.yml down",
     "e2e-tests": "npx playwright test"
   },
   "license": "MIT",
