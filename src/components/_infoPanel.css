@@ -2,6 +2,10 @@
     display: flex;
     gap: calc(var(--spacing-unit) * 0.5);
     align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.25rem;
+    border: var(--border-faint);
 }
 .code-sample samp {
     overflow: hidden;
