@@ -20,6 +20,7 @@ import Key from '../assets/img/key-black.svg';
 import Password from '../assets/img/password-black.svg';
 import Lock from '../assets/img/lock-black.svg';
 import CreateDID from './CreateDID';
+import { useNavigate } from '@solidjs/router';
 
 let warnings = [
     `Key rotation is not supported with <code>did:key</code> key type`,
@@ -28,6 +29,8 @@ let warnings = [
 ]
 
 const Modal: Component = () => {
+
+    const navigate = useNavigate();
 
     // hide Import DID button until able to explore did import flow
     let showImportDID = false;
