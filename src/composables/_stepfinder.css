@@ -1,0 +1,24 @@
+.stepfinder-container {
+    height: 100%;
+}
+
+.stepfinder-container > ul {
+    position: sticky;
+    top: 6rem;
+    padding-inline-start: 3rem;
+}
+
+.stepfinder-container li {
+    padding: calc(var(--spacing-unit) / 2) var(--spacing-unit);
+    border-left: var(--border-light-thick);
+    color: var(--color-complement-50);
+}
+.stepfinder-container li.active {
+    border-left: var(--border-medium-thick);
+    color: var(--color-complement);
+    font-weight: bold;
+}
+.stepfinder-container li.completed {
+    color: var(--color-complement);
+    font-weight: bold;
+}

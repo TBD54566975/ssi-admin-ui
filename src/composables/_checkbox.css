@@ -1,0 +1,30 @@
+.checkbox-container > .checkbox-control {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-container > .checkbox-control > input[type="checkbox"] {
+    appearance: none;
+    margin-right: calc(var(--spacing-unit) * 0.5);
+}
+
+.checkbox-container > .checkbox-control > input[type="checkbox"]:before {
+    content: '';
+    display: block;
+    border: var(--border-medium);
+    height: calc(var(--spacing-unit) * 0.75);
+    width: calc(var(--spacing-unit) * 0.75);
+    border-radius: 0.125rem;
+}
+
+.checkbox-container > .checkbox-control > input[type="checkbox"]:checked {
+    background: var(--color-tbd-purple);
+    border-radius: 0.125rem;
+}
+
+.checkbox-container > .checkbox-control > input[type="checkbox"]:checked:before {
+    border: var(--border-tbd-purple-tint);
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>');
+    background-repeat: no-repeat;
+}
+

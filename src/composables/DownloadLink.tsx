@@ -1,7 +1,7 @@
 import { Component, JSX } from "solid-js";
 import { formatJSON } from "../utils/helpers";
 
-const DownloadLink: Component<{document: any, fileName: string, displayText?: string, class?: string, handleClick?: JSX.EventHandlerUnion<HTMLAnchorElement, MouseEvent>}> = (props) => {
+const DownloadLink: Component<{document?: {}, fileName: string, displayText?: string, class?: string, handleClick?: JSX.EventHandlerUnion<HTMLAnchorElement, MouseEvent>}> = (props) => {
     const blob = new Blob([formatJSON(props.document)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     return (
@@ -13,7 +13,7 @@ const DownloadLink: Component<{document: any, fileName: string, displayText?: st
         >
             {props.displayText || 'Download'}
         </a>
-    )
+    ) 
 }
 
 export default DownloadLink;

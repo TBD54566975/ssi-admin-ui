@@ -1,0 +1,121 @@
+fieldset {
+    border: none;
+    padding: 0;
+    margin: var(--spacing-unit) 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: calc(var(--spacing-unit) * 0.5);
+}
+
+legend {
+    margin: var(--spacing-unit) 0;
+}
+
+.radio-container {
+    position: relative;
+    width: 100%;
+    min-width: 150px;
+    background: #fff;
+}
+
+.radio-container > input[type="radio"] {
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: absolute;
+}
+
+.radio-container > input[type="radio"]:not(:disabled) {
+    cursor: pointer;
+}
+
+.radio-container > input[type="radio"]:after {
+    content: '';
+    height: calc(100% - 4px);
+    display: block;
+    position: relative;
+    /* border: var(--border-light-thick); */
+    border-radius: 0.25rem;
+    box-shadow: var(--box-shadow-complement);
+}
+
+.radio-container > input[type="radio"]:checked:after {
+    border: var(--border-tbd-purple-thick);
+}
+
+.radio-container > input[type="radio"]:disabled:after {
+    opacity: 0.33;
+    background: var(--color-complement-10);
+    box-shadow: none;
+}
+
+.radio-container > input[type="radio"]:disabled ~ .radio-control {
+    opacity: 0.33;
+}
+
+.radio-control {
+    display: flex;
+    padding: var(--spacing-unit);
+}
+
+.radio-control-content {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+.radio-control-body {
+    flex: 1;
+    min-width: 50%;
+}
+
+.radio-card-image {
+    width: calc(var(--spacing-unit) * 3);
+    height: calc(var(--spacing-unit) * 3);
+    margin: calc(var(--spacing-unit) * 0.5);
+}
+
+.radio-control-heading {
+    font-weight: bold;
+    margin: 0;
+}
+
+.radio-card-description {
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
+
+.radio-control-footer-label {
+    color: var(--color-tbd-purple);
+    font-size: var(--font-size-xs);
+    font-weight: bold;
+    margin: 0.25rem 0 0;
+}
+
+.radio-container > input[type="radio"]:disabled ~ .radio-control .radio-control-footer-label {
+    color: var(--color-complement-50);
+}
+
+.radio-control:after {
+    --size: var(--spacing-unit);
+    content: '';
+    height: var(--size);
+    width: var(--size);
+    min-height: var(--size);
+    min-width: var(--size);
+    display: block;
+    position: relative;
+    border: var(--border-light-thick);
+    border-radius: 100px;
+    background: var(--color-primary);
+}
+
+.radio-container > input[type="radio"]:checked ~ .radio-control:after {
+    background: var(--color-tbd-purple);
+    border: var(--border-tbd-purple-thick);
+    box-shadow: inset 0 0 0 0.25rem var(--color-primary);
+}

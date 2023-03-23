@@ -4,5 +4,9 @@
 }
 
 .group-inputs > .field-interactive-btn:disabled {
-    visibility: hidden;
+    opacity: 0;
+}
+
+.group-inputs > .field-interactive-btn.visible-on-disabled:disabled {
+    opacity: 0.25;
 }

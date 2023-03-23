@@ -1,4 +1,4 @@
-import { Component, createSignal, For, JSX, Show } from "solid-js";
+import { Component, createEffect, createSignal, For, JSX, Show } from "solid-js";
 import Icon from "../icons/Icon";
 import Select from "./Select";
 import TextInput from "./TextInput";
@@ -24,7 +24,7 @@ const GroupInput: Component<{setProperties?: any, handleSelectEvent?: JSX.EventH
                             )
                             }}  
                         label={"Property name"} 
-                        name={"propertyName"} 
+                        name={`propertyName-${index()}`} 
                         placeholder={"Name of property"} 
                         value={property[0]} 
                     />
@@ -46,10 +46,10 @@ const GroupInput: Component<{setProperties?: any, handleSelectEvent?: JSX.EventH
                             {label:'number', value:'number', selected: property[1].type === 'number'}
                         ]} 
                         label={"Property type"} 
-                        name={"propertyType"}
+                        name={`propertyType-${index()}`}
                     />
                     <button 
-                        class="field-interactive-btn" 
+                        class="field-interactive-btn visible-on-disabled" 
                         onclick={() => setPropertyList(propertyList().filter((item) => item !== property))} 
                         disabled={propertyList().length === 1}
                     >
