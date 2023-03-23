@@ -67,98 +67,100 @@ const CreateDID: Component = () => {
     
 
     return (
-        <SidebarLayout sidebarSteps={
-            steps.map((step, index) => { 
-                return {
-                    label: step.label, 
-                    active: step === currentStep(), 
-                    completed:  index < steps.indexOf(currentStep())
-                }
-            })
-        }>
-            <section class="create-did-inner">
-                <h2>{currentStep().label}</h2>
-                <p class="subheading">{currentStep().description}</p>
-                <Switch>
-                    <Match when={currentStep() === steps[0]}>
-                        <Accordion title={"Link website (optional)"}>
-                            <TextInput 
-                                type="url"
-                                handleEvent={(e) => {setDidWebID(e.currentTarget.value)}} 
-                                name={"webID"} 
-                                label={"Website URL"} 
-                                optional
-                                description={"You'll need to verify ownership of the domain before you can start using it."}
-                                placeholder={"example.com"}
-                            />
-                            <a href="#" target="blank">Learn about getting started with Web D-IDs </a>
-                        </Accordion>
-
-                        <Accordion title={"Advanced"}>
-                            <Select 
-                                handleEvent={(e) => setDidKeyType(e.currentTarget.value as DIDKeyType)} 
-                                options={keyTypeOptions.map(option => { 
-                                        return { 
-                                            label: option, 
-                                            value: option
-                                        }
-                                    })} 
-                                label={"Encryption algorithm"} 
-                                description={"The cryptographic algorithm family to use to create your D-ID"}
-                                name={"keyType"} 
-                                firstIsDefault
-                            />
-                            <a href="#" target="blank">Learn about key encryption algorithms</a>
-                        </Accordion>
-                    </Match>
-
-                    <Match when={currentStep() === steps[1]}>
-                        <Banner 
-                            type="warn"
-                            message={'The private key inside this document can never be recovered if lost.'} 
-                        />
-                    </Match>
-                </Switch>
-
-                <div class="btn-container-flex">
-                    <Show when={true}>
-                        <button 
-                            onclick={() => {
-                                if (currentStep() === steps[0]) {
-                                    history.back();
-                                }
-                                setCurrentStep(
-                                    steps[steps.indexOf(currentStep()) - 1]
-                                )}} 
-                            class="btn btn-outline"
-                        >
-                            Back
-                        </button>
-                    </Show>
+        <div class="create-did-container">
+            <SidebarLayout sidebarSteps={
+                steps.map((step, index) => { 
+                    return {
+                        label: step.label, 
+                        active: step === currentStep(), 
+                        completed:  index < steps.indexOf(currentStep())
+                    }
+                })
+            }>
+                <section class="create-did-inner">
+                    <h2>{currentStep().label}</h2>
+                    <p class="subheading">{currentStep().description}</p>
                     <Switch>
                         <Match when={currentStep() === steps[0]}>
-                            <button 
-                                onclick={() => {
-                                    setCurrentStep(
-                                        steps[steps.indexOf(currentStep()) + 1]
-                                    )}} 
-                                class="btn btn-primary"
-                            >
-                                Next
-                            </button>
+                            <Accordion title={"Link website (optional)"}>
+                                <TextInput 
+                                    type="url"
+                                    handleEvent={(e) => {setDidWebID(e.currentTarget.value)}} 
+                                    name={"webID"} 
+                                    label={"Website URL"} 
+                                    optional
+                                    description={"You'll need to verify ownership of the domain before you can start using it."}
+                                    placeholder={"example.com"}
+                                />
+                                <a href="#" target="blank">Learn about getting started with Web D-IDs </a>
+                            </Accordion>
+
+                            <Accordion title={"Advanced"}>
+                                <Select 
+                                    handleEvent={(e) => setDidKeyType(e.currentTarget.value as DIDKeyType)} 
+                                    options={keyTypeOptions.map(option => { 
+                                            return { 
+                                                label: option, 
+                                                value: option
+                                            }
+                                        })} 
+                                    label={"Encryption algorithm"} 
+                                    description={"The cryptographic algorithm family to use to create your D-ID"}
+                                    name={"keyType"} 
+                                    firstIsDefault
+                                />
+                                <a href="#" target="blank">Learn about key encryption algorithms</a>
+                            </Accordion>
                         </Match>
+
                         <Match when={currentStep() === steps[1]}>
-                            <button 
-                                onclick={createTempDID} 
-                                class="btn btn-primary"
-                            >
-                                Download and Finish
-                            </button>
+                            <Banner 
+                                type="warn"
+                                message={'The private key inside this document can never be recovered if lost.'} 
+                            />
                         </Match>
                     </Switch>
-                </div>
-            </section>
-        </SidebarLayout>
+
+                    <div class="btn-container-flex">
+                        <Show when={true}>
+                            <button 
+                                onclick={() => {
+                                    if (currentStep() === steps[0]) {
+                                        history.back();
+                                    }
+                                    setCurrentStep(
+                                        steps[steps.indexOf(currentStep()) - 1]
+                                    )}} 
+                                class="btn btn-outline"
+                            >
+                                Back
+                            </button>
+                        </Show>
+                        <Switch>
+                            <Match when={currentStep() === steps[0]}>
+                                <button 
+                                    onclick={() => {
+                                        setCurrentStep(
+                                            steps[steps.indexOf(currentStep()) + 1]
+                                        )}} 
+                                    class="btn btn-primary"
+                                >
+                                    Next
+                                </button>
+                            </Match>
+                            <Match when={currentStep() === steps[1]}>
+                                <button 
+                                    onclick={createTempDID} 
+                                    class="btn btn-primary"
+                                >
+                                    Download and Finish
+                                </button>
+                            </Match>
+                        </Switch>
+                    </div>
+                </section>
+            </SidebarLayout>
+        </div>
     )
 }
 

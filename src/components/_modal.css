@@ -16,6 +16,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100dvw;
+    position: absolute;
+    top: 0;
+    background: var(--color-primary);
 }
 
 .dialog-content {

@@ -212,7 +212,6 @@ const Modal: Component = () => {
                                 </div>
                             </Match>
                         </Switch>
-
                     </Match>
                 </Switch>
             </div>

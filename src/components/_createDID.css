@@ -5,3 +5,10 @@
 .create-did-inner {
     max-width: var(--max-width);
 }
+
+.create-did-container {
+    position: absolute;
+    width: 100%;
+    background: var(--color-primary);
+    top: 0;
+}
