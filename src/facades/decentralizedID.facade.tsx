@@ -63,9 +63,16 @@ export const getWebDIDs = async (): Promise<DIDDocument[]> => {
 }
 
 export const getDIDs = async (): Promise<DIDDocument[]> => {
+    let dids: any[] = [];
     const web = await getWebDIDs();
     const key = await getKeyDIDs();
-    return [...key, ...web];
+    if (web?.length) {
+        dids = [...dids, ...web]
+    }
+    if (key?.length) {
+        dids = [...dids, ...key]
+    }
+    return dids;
 }
 
 export const createDID = async (method: DIDMethod, options: DIDOptions): Promise<DIDDocumentWithKey> => {
