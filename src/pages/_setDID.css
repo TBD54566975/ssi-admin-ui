@@ -6,6 +6,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 2rem;
 }
 
 .set-did h1 {

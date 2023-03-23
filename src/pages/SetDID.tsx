@@ -18,9 +18,6 @@ const SetDID: Component = () => {
         filePicker?.click();
     }
 
-    if(getDIDAtPosition(0)) {
-        navigate('/')
-    }
 
     function importTempDID() {
         if (filePicker && filePicker.files) {
