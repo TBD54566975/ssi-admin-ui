@@ -3,7 +3,7 @@ import { useRoutes, Link, useRouteData, useNavigate, NavLink } from "@solidjs/ro
 
 import './App.css';
 import { routeConfig, routesForNavbar } from './routes/routes';
-import InfoPanel from './components/InfoPanel';
+import InfoPanel from './experimental/InfoPanel';
 import Modal from './components/Modal';
 import { getDIDAtPosition, setStoreDIDs } from './stores/store';
 import { getDIDs } from './facades/decentralizedID.facade';
