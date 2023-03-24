@@ -5,7 +5,6 @@ import TextInput from "../composables/TextInput";
 import { getPresentationDefinitions } from "../facades/presentationDefinition.facade";
 import { blankPresentationDefinition } from "../mocks/presentation";
 import { formatJSON } from "../utils/helpers";
-import "./_schemas.css";
 
 const CreateCriteria: Component<{formValues?: { [k: string]: string | undefined; }}> = (props) => {
 
