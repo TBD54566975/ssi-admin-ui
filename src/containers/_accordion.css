@@ -1,0 +1,38 @@
+.accordion-container {
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow-complement-lg);
+    margin-bottom: 1rem;
+}
+
+.accordion-container > .accordion-body {
+    margin-block-start: calc(var(--spacing-unit) * 0.5);
+    margin-inline-start: calc(var(--spacing-unit) * 2);
+    padding: 0 4rem 2rem 2rem;
+}
+
+.accordion-container > summary {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    padding: 2rem;
+    padding-right: 4rem;
+}
+
+.accordion-container > summary:hover {
+    cursor: pointer;
+}
+
+.accordion-container > summary::before {
+    display: block;
+    content: '';
+    height: var(--spacing-unit);
+    width: var(--spacing-unit);
+    margin-inline-end: var(--spacing-unit); 
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>');
+    background-repeat: no-repeat;
+    transition: ease all 0.25s;
+}
+
+.accordion-container[open] > summary::before {
+    transform: rotate(0.25turn);
+}

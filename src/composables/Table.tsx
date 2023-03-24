@@ -1,7 +1,7 @@
 import { Component, For, onMount } from "solid-js";
 import "./_table.css";
 
-const Table: Component<{data: Array<{[key: string]: any}>}> = (props) => {
+const Table: Component<{data: Array<{[key: string]: any}>, ariaLabelledBy?: string}> = (props) => {
     let outputModal: HTMLDialogElement;
 
     onMount(() => {
@@ -14,14 +14,14 @@ const Table: Component<{data: Array<{[key: string]: any}>}> = (props) => {
         }
     })
     return (
-        <table class="data-table">
-            <thead>
+        <table class="data-table" aria-labelledby={props.ariaLabelledBy}>
+            {/* <thead>
                 <tr>
                     <For each={Object.keys(props.data[0])}>
                         {(col) => <th>{col}</th>}
                     </For>
                 </tr>
-            </thead>
+            </thead> */}
             <tbody>
                 <For each={props.data}>
                     {(row) => 

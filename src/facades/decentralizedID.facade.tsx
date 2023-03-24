@@ -1,12 +1,36 @@
 const baseUrl = `/v1/dids`;
 
-type DIDMethod = 'key' | 'web';
+export const keyTypeOptions = [
+    'Ed25519',
+    'X25519',
+    'secp256k1',
+    'P-224',
+    'P-256',
+    'P-384',
+    'P-521',
+    'RSA'
+] as const;
 
-export type DIDKeyType = 'Ed25519' | 'X25519' | 'secp256k1' | 'P-224' | 'P-256' | 'P-384' | 'P-521' | 'RSA';
+export const DIDMethodOptions = [
+    'key',  
+    'web'
+] as const;
+
+
+export type DIDKeyType = typeof keyTypeOptions[number];
+
+export type DIDMethod = typeof DIDMethodOptions[number];
+
 
 interface DIDOptions {
     keyType: DIDKeyType, 
     didWebId?: string
+}
+
+export interface DIDDocumentWithKey {
+    did: DIDDocument, 
+    privateKeyBase58: string, 
+    keyType: DIDKeyType
 }
 
 export interface DIDDocument {
@@ -28,12 +52,30 @@ export const getDIDMethods = async (): Promise<DIDMethod[]> => {
     return res.json();
 }
 
-export const getDIDs = async (method: DIDMethod): Promise<DIDDocument[]> => {
-    const res = await fetch(`${baseUrl}/${method}`);
-    return (await res.json()).dids;
+export const getKeyDIDs = async (): Promise<DIDDocument[]> => {
+    const res = await fetch(`${baseUrl}/key`);
+    return (await res.json()).dids
 }
 
-export const createDID = async (method: DIDMethod, options: DIDOptions): Promise<DIDDocument> => {
+export const getWebDIDs = async (): Promise<DIDDocument[]> => {
+    const res = await fetch(`${baseUrl}/web`);
+    return (await res.json()).dids
+}
+
+export const getDIDs = async (): Promise<DIDDocument[]> => {
+    let dids: any[] = [];
+    const web = await getWebDIDs();
+    const key = await getKeyDIDs();
+    if (web?.length) {
+        dids = [...dids, ...web]
+    }
+    if (key?.length) {
+        dids = [...dids, ...key]
+    }
+    return dids;
+}
+
+export const createDID = async (method: DIDMethod, options: DIDOptions): Promise<DIDDocumentWithKey> => {
     const res = await fetch(`${baseUrl}/${method}`,
     {
         method: `PUT`,

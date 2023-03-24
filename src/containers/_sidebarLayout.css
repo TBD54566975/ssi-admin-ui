@@ -1,0 +1,17 @@
+.sidebar-layout {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar-layout > aside {
+    flex: 25%;
+    padding: calc(var(--spacing-unit) * 3) var(--spacing-unit);
+}
+
+.sidebar-layout > section {
+    flex: 75%;
+}
+
+.sidebar-layout .inner-section { 
+    max-width: var(--max-width);
+}

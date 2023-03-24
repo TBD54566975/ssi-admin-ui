@@ -1,12 +1,20 @@
-const baseUrl = `/v1/presentation/definitions`;
+const baseUrl = `/v1/presentations/definitions`;
 
 interface PresentationOptions {
     author: string,
     format?: { 
-        jwt: string, 
-        jwt_vp: string, 
-        ldp: string, 
-        ldp_vp: string 
+        jwt?: {
+            alg: string[]
+        }, 
+        jwt_vp?: {
+            alg: string[]
+        }, 
+        ldp?: {
+            alg: string[]
+        }, 
+        ldp_vp?: {
+            alg: string[]
+        } 
     },
     inputDescriptors: unknown,
     name?: string,
@@ -36,7 +44,7 @@ export const getPresentationDefinition = async (presentationId: string) => {
     return res.json();
 }
 
-export const listPresentationDefinition = async () => {
+export const getPresentationDefinitions = async () => {
     const res = await fetch(`${baseUrl}`);
     return res.json();
 }

@@ -10,7 +10,7 @@ const Schemas: Component = () => {
 
     return (
         <article>
-            <NavSidebar navItems={[{path: '/schemas', title: 'All Schemas'}, {path: '/schemas/create-schema', title: 'Create a Schema'}]}/>
+            <NavSidebar navItems={[{path: '/schemas', title: 'All Schemas'}, {path: '/credentials/schemas/new', title: 'Create a Schema'}]}/>
             <div class="inner-content">
                 <h1>{pageTitle}</h1>
                 <Table data={[{

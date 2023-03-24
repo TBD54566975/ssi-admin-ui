@@ -3,7 +3,13 @@ const baseUrl = `/v1/schemas`;
 interface SchemaOptions {
     author: string,
     name: string, 
-    schema: string
+    schema: {
+        properties: {
+            [k: string]: {
+                type: string
+            }
+        }
+    }
     // This call also takes a boolean `sign` property, which we will always pass true
 }
 

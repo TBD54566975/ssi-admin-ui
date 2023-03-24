@@ -7,7 +7,6 @@
     padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
     border-left: var(--border-light-thick);
     color: var(--color-complement-50);
-    letter-spacing: -0.0125rem;
 }
 .side-panel-container > .side-panel li > a.active {
     color: var(--color-tbd-purple);

@@ -1,32 +1,66 @@
 import { Accessor, createMemo, createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 import { DIDDocument } from "../facades/decentralizedID.facade";
-// import { mockDID } from "../mocks/didJson";
+import { ManifestOptions } from "../facades/manifest.facade";
+import { mockDID } from "../mocks/didJson";
 
 export const [store, setStore] = createStore<any>({
   dids: [],
   schemas: [],
-  get userDID() {
-    return userDID()
+  manifests: [],
+  get userDIDs() {
+    return userDIDs()
+  },
+  get userCredentials() {
+    return userManifests()
   }
 });
 
-export const setDID = (DID: DIDDocument | undefined) => {
-  setStore('dids', (dids: DIDDocument[]) => [...dids, DID]);
+
+// dids
+
+export const setStoreDIDs = (DIDs: DIDDocument[]) => {
+  setStore('dids', (prevDIDs: DIDDocument[]) => [...prevDIDs, ...DIDs]);
 }
 
-let userDID: Accessor<DIDDocument[]>;
+let userDIDs: Accessor<DIDDocument[]>;
 
 createRoot(() => {
-   userDID = createMemo(() => store.dids);
+   userDIDs = createMemo(() => store.dids);
 });
 
-export const getUserDIDs = () => {
-  return userDID();
+export const getStoreDIDs = () => {
+  return userDIDs();
+}
+
+export const getIDsFromStoreDIDs = () => {
+  return userDIDs().map((document) => document.id);
 }
 
 export const getDIDAtPosition = (index: number) => {
-  return userDID()[index];
+  return userDIDs()[index];
 }
 
-// if (mockDID) setDID(mockDID);
+// manifests
+
+// export const setStoreManifests = (manifests: ManifestOptions[]) => {
+//   setStore('manifests', (prevManifests: ManifestOptions[]) => [...manifests]);
+// }
+
+export const setStoreManifests = (manifests: ManifestOptions[]) => {
+  let manifestSet: any[] = [];
+  if (manifests?.length) {
+    manifestSet = [...manifestSet, ...manifests]
+  }
+  setStore('manifests', (prevManifests: ManifestOptions[]) => [...prevManifests, ...manifestSet]);
+}
+
+let userManifests: Accessor<ManifestOptions[]>;
+
+createRoot(() => {
+   userManifests = createMemo(() => store.manifests);
+});
+
+export const getStoreManifests = () => {
+  return userManifests();
+}

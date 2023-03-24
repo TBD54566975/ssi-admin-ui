@@ -11,19 +11,19 @@ const createNewBtn = await page.waitForSelector('button:text("Create new")');
 await createNewBtn.click();
 
 // Expect a Generate button and click it.
-const generateBtn = await page.waitForSelector('button:text("Generate")');
+const generateBtn = await page.waitForSelector('button:text("Next")');
 await generateBtn.click();
 
 // Expect an anchor (link) with text "Download JSON" and click it.
-const downloadJSONLink = await page.waitForSelector('a:text("Download JSON")');
+const downloadJSONLink = await page.waitForSelector('button:text("Download and Finish")');
 await downloadJSONLink.click();
 
-// Expect a Done button and click it.
-const doneBtn = await page.waitForSelector('button:text("Done")');
-await doneBtn.click();
+// Expect an anchor (link) to "/credentials".
+const credentials = await page.waitForSelector('a[href="/credentials"]');
+await credentials.click();
 
-// Expect an anchor (link) to "/schemas".
-const schemas = await page.waitForSelector('a[href="/schemas"]');
-await schemas.click();
+// Expect a button to Create Credentials
+const doneBtn = await page.waitForSelector('button:text("Create Credential")');
+await doneBtn.click();
 
 });

@@ -6,19 +6,52 @@ interface ManifestFilters {
     subject?: string
 }
 
-interface ManifestOptions {
+export interface ManifestOptions {
+    credential_manifest: {
+        description?: string, 
+        format?: { 
+            jwt?: {
+                alg: string[]
+            }, 
+            jwt_vc?: {
+                alg: string[]
+            }, 
+            ldp?: {
+                alg: string[]
+            }, 
+            ldp_vc?: {
+                alg: string[]
+            } 
+        }, 
+        issuerDid: string, 
+        issuerName?: string, 
+        name?: string, 
+        output_descriptors: any[], 
+        presentation_definition?: any
+    }
+}
+
+export interface ManifestInputs {
     description?: string, 
     format?: { 
-        jwt: string, 
-        jwt_vc: string, 
-        ldp: string, 
-        ldp_vc: string 
+        jwt?: {
+            alg: string[]
+        }, 
+        jwt_vc?: {
+            alg: string[]
+        }, 
+        ldp?: {
+            alg: string[]
+        }, 
+        ldp_vc?: {
+            alg: string[]
+        } 
     }, 
     issuerDid: string, 
     issuerName?: string, 
     name?: string, 
-    outputDescriptors: unknown, 
-    presentationDefinition?: unknown
+    outputDescriptors: any[], 
+    presentationDefinition?: any
 }
 
 const transformToQueryParams = (filters: ManifestFilters): string => {
@@ -35,13 +68,17 @@ const transformToQueryParams = (filters: ManifestFilters): string => {
     return params.join('&');
 }
 
-export const getManifests = async (filterBy: ManifestFilters) => {
-    const res = await fetch(`${baseUrl}?${transformToQueryParams(filterBy)}`);
+export const getManifests = async (filterBy?: ManifestFilters) => {
+    let query = '';
+    if (filterBy) {
+        query = `?${transformToQueryParams(filterBy)}`
+    }
+    const res = await fetch(baseUrl + query);
     return res.json();
 }
 
-export const createManifest = async (options: ManifestOptions) => {
-    const res = await fetch(`${baseUrl}`, {
+export const createManifest = async (options: ManifestInputs) => {
+    const res = await fetch(baseUrl, {
         method: 'PUT',
         body: JSON.stringify(options)
     });

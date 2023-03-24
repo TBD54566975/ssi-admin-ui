@@ -2,7 +2,13 @@
     box-shadow: var(--box-shadow-complement-lg);
     border-radius: calc(var(--spacing-unit) * 0.5);
     padding: calc(var(--spacing-unit) * 2) var(--spacing-unit);
-    max-width: 300px;
+    max-width: 360px;
+    text-align: center;
+    margin: auto;
+}
+
+.card-container h2 {
+    font-size: 1.25rem;
 }
 
 .card-container p {
@@ -23,6 +29,7 @@
     margin: 0 var(--spacing-unit);
     padding: calc(var(--spacing-unit) * 0.5);
     background: var(--color-complement);
+    margin: auto;
 }
 
 .card-icon img {

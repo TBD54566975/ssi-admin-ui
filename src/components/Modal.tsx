@@ -4,11 +4,23 @@ import Select from '../composables/Select';
 import "./_modal.css";
 import { mockDID } from '../mocks/didJson';
 import Banner from '../composables/Banner';
-import { getDIDAtPosition, setDID } from '../stores/store';
-import { createDID, DIDDocument, DIDKeyType } from '../facades/decentralizedID.facade';
+import { getDIDAtPosition, setStoreDIDs } from '../stores/store';
+import { createDID, DIDDocument, DIDKeyType, DIDMethod } from '../facades/decentralizedID.facade';
 import DownloadLink from '../composables/DownloadLink';
 import TextSample from '../composables/TextSample';
 import { storeKey } from '../facades/keyStore.facade';
+import TextInput from '../composables/TextInput';
+import RadioCardSet from '../composables/RadioCardSet';
+import Checkbox from '../composables/Checkbox';
+import Icon from '../icons/Icon';
+import Dialog from '../containers/Dialog';
+import Stepfinder from '../composables/Stepfinder';
+import Accordion from '../containers/Accordion';
+import Key from '../assets/img/key-black.svg';
+import Password from '../assets/img/password-black.svg';
+import Lock from '../assets/img/lock-black.svg';
+import CreateDID from './CreateDID';
+import { useNavigate } from '@solidjs/router';
 
 let warnings = [
     `Key rotation is not supported with <code>did:key</code> key type`,
@@ -17,6 +29,8 @@ let warnings = [
 ]
 
 const Modal: Component = () => {
+
+    const navigate = useNavigate();
 
     // hide Import DID button until able to explore did import flow
     let showImportDID = false;
@@ -38,7 +52,7 @@ const Modal: Component = () => {
         }
     ]
     const welcome = {
-        label: 'Set your Decentralized ID',
+        label: 'Set your D-ID',
         description: 'If this is your first time, start by creating a new DID. If you already have a DID, import your original DID document containing your private key.'
     }
     const success = {
@@ -62,12 +76,28 @@ const Modal: Component = () => {
             value: type
         }
     })
+
+    const keyMethodOptions: DIDMethod[] = [
+        'key',
+        'web'
+    ]
+
+    const keyMethods = keyMethodOptions.map(type => {
+        return {
+            label: type,
+            value: type
+        }
+    })
     const [currentStep, setCurrentStep] = createSignal(welcome);
 
     // Before we set the store did, we will set the did temporarily here so that we can keep the modal up for one more informative slide
     const [tempDID, setTempDID] = createSignal<DIDDocument | any>();
 
     const [didKeyType, setDidKeyType] = createSignal<DIDKeyType>('Ed25519');
+
+    const [didMethod, setDidMethod] = createSignal<DIDMethod>('key');
+
+    const [didWebID, setDidWebID] = createSignal<string>('');
 
     const currentIndex = () => steps.indexOf(currentStep());
 
@@ -101,7 +131,6 @@ const Modal: Component = () => {
                         base58PrivateKey: privateKeyBase58,
                         type: keyType
                     };
-                    console.log(keyStoreOptions);
                     storeKey(keyStoreOptions).then(res => console.log(res)).catch(e => console.error(e));
                 }
             }
@@ -112,51 +141,56 @@ const Modal: Component = () => {
 
     function createTempDID() {
         // create the did 
-        createDID('key', {
+        createDID(didMethod(), {
             keyType: didKeyType(),
-        }).then(res => {setTempDID(res); console.log(tempDID())}).catch(e => console.error(e));
+            didWebId: `did:web:${didWebID()}`
+        }).then(res => {setTempDID(res)}).catch(e => console.error(e));
     }
 
     function setStoreDID() {
         // set it in the store
-        setDID(tempDID().did)
+        setStoreDIDs([tempDID().did])
     }
 
     return (
-        <dialog ref={onboardModal} class="dialog-container">
-            <div class="modal-steps">
-                <Show when={currentIndex() >= 0}>
-                    <aside class="modal-sidebar">
-                        <ul>
-                            <For each={steps}>
-                                {(step, index) => {
-                                    return (
-                                        <li classList={{ active: step === currentStep(), completed: index() < currentIndex() }}>
-                                            {step.label}
-                                        </li>
-                                    )
-                                    }
-                                }
-                            </For>
-                        </ul>
-                    </aside>
-                </Show>
-            </div>
+        <div class="modal-did">
             <div class="dialog-content">
                 <Switch>
                     <Match when={currentIndex() === -1}>
                         <Switch>
                             <Match when={currentStep() === welcome}>
                                 <div>
-                                    <h1>{welcome.label}</h1>
-                                    <p>{welcome.description}</p>
+                                    <h1>Set your D-ID.</h1>
+                                    <p>
+                                        Jump in by creating a new D-ID or importing an existing D-ID document. 
+                                    </p>
+                                    <p>
+                                        <a href="#" target="blank">Learn about D-IDs</a>
+                                    </p>
                                     <div class="btn-container-sm">
-                                        <button onclick={() => setCurrentStep(steps[0])} class="btn btn-primary btn-full-w">Create new</button>
+                                        <button 
+                                            onclick={() => navigate('create-did')} 
+                                            class="btn btn-primary btn-full-w"
+                                        >
+                                            Create new
+                                        </button>
+
                                         { showImportDID && 
                                             <> 
                                                 <span class="or-divider">or</span>
-                                                <input oninput={() => importTempDID()} ref={filePicker} hidden type="file" accept=".json" />
-                                                <button onclick={() => openFilePicker()} class="btn btn-outline btn-full-w">Import existing</button> 
+                                                <input 
+                                                    oninput={() => importTempDID() } 
+                                                    ref={filePicker} 
+                                                    hidden 
+                                                    type="file" 
+                                                    accept=".json" 
+                                                />
+                                                <button 
+                                                    onclick={() => openFilePicker() } 
+                                                    class="btn btn-outline btn-full-w"
+                                                >
+                                                    Import existing
+                                                </button> 
                                             </>
                                         }
                                     </div>
@@ -174,46 +208,13 @@ const Modal: Component = () => {
                                 </div>
                             </Match>
                         </Switch>
-
-                    </Match>
-                    <Match when={currentIndex() > -1}>
-                        <div>
-                            <h2>{currentStep().label}</h2>
-                            <p>{currentStep().description}</p>
-                            <Switch>
-                                <Match when={currentIndex() === 0}>
-                                    <Select handleEvent={(e) => {setDidKeyType(e.currentTarget.value as DIDKeyType)}} options={keyTypes} label={"Key type"} name={"keyType"} firstIsDefault={true}/>
-                                </Match>
-                                <Match when={currentIndex() === 1}>
-                                    <Banner type="warn" message={warnings[2]} />
-                                </Match>
-                                <Match when={currentIndex() === 2}>
-                                    <Banner type="success" message="Your DID is successfully created." />
-                                    <TextSample textToDisplay={tempDID()?.did.id || 'Error fetching DID'} />
-                                </Match>
-                            </Switch>
-                            <div class="btn-container-flex">
-                                <Show when={currentIndex() === 0 || currentIndex() === 2}>
-                                    <button onclick={() => setCurrentStep(steps[currentIndex() - 1])} class="btn btn-outline">Back</button>
-                                </Show>
-                                <Switch>
-                                    <Match when={currentIndex() === 0}>
-                                    <button onclick={() => {createTempDID(); setCurrentStep(steps[currentIndex() + 1])}} class="btn btn-primary">Generate</button>
-                                    </Match>
-                                    <Match when={currentIndex() === 1 && tempDID()}>
-                                        <DownloadLink document={tempDID()} fileName={"did.json"} handleClick={() => {console.log(tempDID()); setCurrentStep(steps[currentIndex() + 1])}} displayText={"Download JSON"} />
-                                    </Match>
-                                    <Match when={currentIndex() === 2}>
-                                    <button onclick={setStoreDID} class="btn btn-primary">Done</button>
-                                    </Match>
-                                </Switch>
-
-                            </div>
-                        </div>
                     </Match>
                 </Switch>
             </div>
-        </dialog>
+            <Show when={currentIndex() > -1}>
+                <CreateDID />
+            </Show>
+        </div>
     )
 }
 

@@ -3,7 +3,7 @@ import { Component } from "solid-js";
 import Icon from "../icons/Icon";
 import "./_card.css";
 
-const Card: Component<{heading: string, body: string, cta: string, img: string}> = (props) => {
+const Card: Component<{heading: string, body: string, cta: string, img: string, url: string}> = (props) => {
     return (
         <div class="card-container">
             <div class="card-icon">
@@ -12,7 +12,7 @@ const Card: Component<{heading: string, body: string, cta: string, img: string}>
             <h2>{props.heading}</h2>
             <p>{props.body}</p>
             <div>
-                <Link href={"/schemas"} class="link-with-icon"> 
+                <Link href={props.url} class="link-with-icon"> 
                     {props.cta}
                     <Icon name={"arrow-long-right"} />
                 </Link>

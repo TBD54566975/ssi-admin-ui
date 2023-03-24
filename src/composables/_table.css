@@ -15,22 +15,23 @@ dialog {
     max-width: 350px;
 }
 
-.data-table tr > th:last-child,
-.data-table tr > td:last-child {
+.data-table tr > th:last-child:not(:first-child),
+.data-table tr > td:last-child:not(:first-child) {
     text-align: right;
-    padding-right: 0;
 }
 
 .data-table tr > td:not(:last-child) {
     overflow-wrap: break-word;
 }
 
-.data-table > tbody > tr {
-    border-top: var(--border-medium);
+.data-table > tbody > tr:nth-child(even) {
+    background: var(--color-complement-5);
 }
 
 .data-table > tbody > tr > td {
-    vertical-align: text-top;
+    vertical-align: middle;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 .data-table menu {
@@ -38,3 +39,16 @@ dialog {
     gap: calc(var(--spacing-unit) * 0.5);
     justify-content: flex-end;
 }
+
+.data-table tr > td:first-child {
+    padding-left: 4rem;
+}
+
+.data-table tr > td:last-child {
+    padding-right: 4rem;
+}
+
+.data-table tr > td:not(:first-child) {
+    width: 50%;
+}
+

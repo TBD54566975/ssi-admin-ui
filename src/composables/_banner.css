@@ -4,7 +4,7 @@
     display: flex;
     margin-block: 0;
     margin-inline: 0;
-    padding: calc(var(--spacing-unit) * 0.75);
+    padding: var(--spacing-unit);
     border: var(--border-light-thick);
     gap: calc(var(--spacing-unit) / 2);
     border-radius: 4px;
@@ -13,27 +13,29 @@
 }
 
 .alert-banner.alert-warn {
-    /* --color-warn: rgb(225 132 20); */
-    --color-warn: rgb(255 220 177);
-    background: var(--color-warn);
-
-    color: var(--color-complement);
+    background: rgb(255 220 177);
+    color: rgb(161 99 23);
 }
 
 .alert-banner.alert-danger {
-    background: var(--color-danger);
+    background: rgb(254 202 199);
+    color: rgb(193, 9, 2);
 }
 
 .alert-banner.alert-info {
-    background: var(--color-success);
+    background: rgb(176 207 234);
+    color: rgb(35, 75, 110);
 }
 
 .alert-banner.alert-success {
-    background: var(--color-success);
+    background: rgb(193 230 204);
+    color: rgb(36, 116, 60);
 }
 
 .alert-banner figcaption {
     display: flex;
+    margin-top: 0.25rem;
+    margin-right: 0.25rem;
 }
 
 .alert-banner p {
