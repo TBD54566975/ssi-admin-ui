@@ -7,7 +7,7 @@ import Overview from "../pages/Overview";
 import DecentralizedIDs from "../pages/DecentralizedIDs";
 import IssueCredential from "../pages/IssueCredential";
 import PresentationDefinitions from "../pages/PresentationDefinitions";
-import ResolveDID from "../pages/ResolveDID";
+import ResolveDID from "../experimental/ResolveDID";
 import CreateCredentialTemplate from "../pages/CreateCredentialTemplate";
 import Modal from "../components/Modal";
 import CreateDID from "../components/CreateDID";
