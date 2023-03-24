@@ -1,13 +1,9 @@
-import { Component, createSignal, Match, Show, Switch } from "solid-js";
-import NavSidebar from "../components/NavSidebar";
-import GroupInput from "../composables/GroupInput";
+import { Component, createSignal } from "solid-js";
 import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
 import { getPresentationDefinitions } from "../facades/presentationDefinition.facade";
 import { blankPresentationDefinition } from "../mocks/presentation";
-import { mockSchemaRequest } from "../mocks/schemaJson";
-import { getDIDAtPosition } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 import "./_schemas.css";
 
@@ -17,12 +13,8 @@ const CreateCriteria: Component<{formValues?: { [k: string]: string | undefined;
 
     const [ criteria, setCriteria ] = createSignal([]);
 
-
     getPresentationDefinitions().then(res => {
         setCriteria(res.definitions);
-        // if (res.definitions[0]) {
-        //     setCriteriaProperties(res.definitions[0].input_descriptors);
-        // }
     });
 
     const setProperties = (e: string | any) => {
@@ -32,7 +24,6 @@ const CreateCriteria: Component<{formValues?: { [k: string]: string | undefined;
             setCriteriaProperties(e); 
         }
     }
-
 
     return (
         <article>
@@ -57,7 +48,6 @@ const CreateCriteria: Component<{formValues?: { [k: string]: string | undefined;
                         }}
                     /> : <div>You have no presets to choose from.</div>
                 }
-                {/* <button class="btn btn-primary">Add new</button> */}
                 <span class="or-divider">or</span>
                 <h3>Define Criteria</h3>
                 <p>Add criteria as a Presentation Definition JSON object.
@@ -81,12 +71,12 @@ const CreateCriteria: Component<{formValues?: { [k: string]: string | undefined;
                         />
                     </div>
                     <h3>Add properties</h3>
-                            <div>
-                                <h4>JSON Editor</h4>
-                                <TextArea handleEvent={(e) => setProperties(e.currentTarget.value)} label={"Properties"} name={"properties"}>
-                                    {formatJSON(criteriaProperties())}
-                                </TextArea>
-                            </div>
+                    <div>
+                        <h4>JSON Editor</h4>
+                        <TextArea handleEvent={(e) => setProperties(e.currentTarget.value)} label={"Properties"} name={"properties"}>
+                            {formatJSON(criteriaProperties())}
+                        </TextArea>
+                    </div>
                 </div>
             </div>
         </article>
