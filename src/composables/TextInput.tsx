@@ -1,6 +1,17 @@
 import { Component, JSX } from "solid-js";
 
-const TextInput: Component<{handleKeyup?: JSX.EventHandlerUnion<HTMLInputElement, Event> | undefined, handleEvent?: JSX.EventHandlerUnion<HTMLInputElement, Event>, label: string, description?: string, name: string, placeholder: string, value?: string, type?: string, optional?: boolean}> = (props) => {
+interface TextInputInterface {
+    handleKeyup?: JSX.EventHandlerUnion<HTMLInputElement, Event> | undefined, 
+    handleEvent?: JSX.EventHandlerUnion<HTMLInputElement, Event>, 
+    label: string, 
+    description?: string, 
+    name: string, 
+    placeholder: string, 
+    value?: string, 
+    type?: string, 
+    optional?: boolean
+}
+const TextInput: Component<TextInputInterface> = (props) => {
     return (
         <div class="field-container">
             <label for={props.name} class="field-heading">{props.label}</label>
