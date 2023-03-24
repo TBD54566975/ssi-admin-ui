@@ -1,11 +1,7 @@
 import { Component, For } from 'solid-js';
-import Card from '../composables/Card';
-import BitcoinSVG from "../assets/img/bitcoin.svg"
-import SidebarLayout from '../containers/SidebarLayout';
 import "./_overview.css";
 import Icon from '../icons/Icon';
 import { Link } from '@solidjs/router';
-import NavSidebar from '../components/NavSidebar';
 
 const pageTitle = 'Overview';
 
@@ -34,7 +30,6 @@ const navItems = [
 const Overview: Component = () => {
     return (
             <article>
-                {/* <NavSidebar navItems={navItems}/> */}
                 <div class="overview-container">
                     <div class="inner-content">
                         <h1>{pageTitle}</h1>
