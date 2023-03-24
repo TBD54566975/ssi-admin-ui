@@ -15,13 +15,6 @@ const Table: Component<{data: Array<{[key: string]: any}>, ariaLabelledBy?: stri
     })
     return (
         <table class="data-table" aria-labelledby={props.ariaLabelledBy}>
-            {/* <thead>
-                <tr>
-                    <For each={Object.keys(props.data[0])}>
-                        {(col) => <th>{col}</th>}
-                    </For>
-                </tr>
-            </thead> */}
             <tbody>
                 <For each={props.data}>
                     {(row) => 
