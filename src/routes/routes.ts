@@ -1,6 +1,4 @@
-import { Navigate, RouteDefinition, useIsRouting } from "@solidjs/router";
-import Applications from "../pages/Applications";
-import CreateSchema from "../pages/CreateSchema";
+import { Navigate, RouteDefinition } from "@solidjs/router";
 import Overview from "../pages/Overview";
 import DecentralizedIDs from "../pages/DecentralizedIDs";
 import IssueCredential from "../pages/IssueCredential";
