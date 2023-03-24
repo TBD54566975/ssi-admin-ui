@@ -13,7 +13,7 @@ import CreateCredentialTemplate from "../pages/CreateCredentialTemplate";
 import Submissions from "../pages/Submissions";
 import Modal from "../components/Modal";
 import CreateDID from "../components/CreateDID";
-import SetDID from "../pages/SetDID";
+import SetDID from "../experimental/SetDID";
 
 
 export const routesWithCustomData = [
