@@ -4,7 +4,6 @@ import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
 import { formatJSON } from "../utils/helpers";
-import "./_schemas.css";
 
 const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, formValues?: any, schemaProps?: any}> = (props) => {
 

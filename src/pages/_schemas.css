@@ -1,9 +1,0 @@
-.group-inputs {
-    display: flex;
-    gap: var(--spacing-unit);
-}
-
-.group-inputs input,
-.group-inputs select {
-    font-family: var(--tbd-mono);
-}
