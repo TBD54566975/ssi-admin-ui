@@ -1,7 +1,6 @@
 import { Navigate, RouteDefinition, useIsRouting } from "@solidjs/router";
 import Applications from "../pages/Applications";
 import CreateSchema from "../pages/CreateSchema";
-import Credentials from "../pages/Credentials";
 import Overview from "../pages/Overview";
 import DecentralizedIDs from "../pages/DecentralizedIDs";
 import IssueCredential from "../pages/IssueCredential";
@@ -47,14 +46,14 @@ export const routesWithCustomData = [
             },
             {
                 path: 'automate',
-                component: Credentials,
+                component: IssueCredential,
                 custom: {
                     title: 'Automate'
                 }
             },
             {
                 path: 'view-all',
-                component: Credentials,
+                component: IssueCredential,
                 custom: {
                     title: 'All'
                 }
@@ -76,14 +75,14 @@ export const routesWithCustomData = [
             },
             {
                 path: 'verify',
-                component: Credentials,
+                component: PresentationDefinitions,
                 custom: {
                     title: 'Verify'
                 }
             },
             {
                 path: 'view-all',
-                component: Credentials,
+                component: PresentationDefinitions,
                 custom: {
                     title: 'All'
                 }
