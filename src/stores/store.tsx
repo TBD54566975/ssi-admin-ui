@@ -19,7 +19,7 @@ export const [store, setStore] = createStore<any>({
 
 // dids
 
-export const setStoreDIDs = (DIDs: DIDDocument[]) => {
+export const setStoreDIDs = (DIDs: Partial<DIDDocument>[]) => {
   setStore('dids', (prevDIDs: DIDDocument[]) => [...prevDIDs, ...DIDs]);
 }
 
