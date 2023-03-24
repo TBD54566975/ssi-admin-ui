@@ -1,6 +1,6 @@
 import { Component, Show } from 'solid-js';
 import { updateCopyText } from '../utils/helpers';
-import CopyButton from '../composables/CopyButton';
+import CopyButton from './CopyButton';
 import './_outputSample.css';
 
 const OutputSample: Component<{codeToDisplay: string, downloadFile?: any}> = (props) => {
