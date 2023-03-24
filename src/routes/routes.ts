@@ -10,7 +10,6 @@ import PresentationDefinitions from "../pages/PresentationDefinitions";
 import ResolveDID from "../pages/ResolveDID";
 import Schemas from "../pages/Schemas";
 import CreateCredentialTemplate from "../pages/CreateCredentialTemplate";
-import Submissions from "../pages/Submissions";
 import Modal from "../components/Modal";
 import CreateDID from "../components/CreateDID";
 import SetDID from "../experimental/SetDID";
