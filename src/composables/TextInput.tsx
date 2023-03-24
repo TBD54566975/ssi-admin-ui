@@ -17,7 +17,16 @@ const TextInput: Component<TextInputInterface> = (props) => {
             <label for={props.name} class="field-heading">{props.label}</label>
             {props.optional && <label class="secondary-label">(Optional)</label>}
             {props.description && <label for={props.name} class="field-description">{props.description}</label>}
-            <input required={!props.optional} onblur={props.handleEvent} onkeyup={props.handleKeyup} type={props.type || "text"} id={props.name} name={props.name } placeholder={props.placeholder} value={props.value || ''}/>
+            <input 
+                required={!props.optional} 
+                onblur={props.handleEvent} 
+                onkeyup={props.handleKeyup} 
+                type={props.type || "text"} 
+                id={props.name} 
+                name={props.name } 
+                placeholder={props.placeholder} 
+                value={props.value || ''}
+            />
             <span></span>
         </div>
     )
