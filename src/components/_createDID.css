@@ -1,7 +1,3 @@
-.stepfinder-layout {
-    display: flex;
-}
-
 .create-did-inner {
     max-width: var(--max-width);
 }
