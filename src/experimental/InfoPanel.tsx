@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 import './_infoPanel.css';
-import TextSample from '../composables/TextSample';
+import TextSample from './TextSample';
 
 const InfoPanel: Component<{did: string}> = (props) => {
     return (

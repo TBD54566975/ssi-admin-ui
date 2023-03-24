@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import CopyButton from "./CopyButton";
+import CopyButton from "../composables/CopyButton";
 
 const TextSample: Component<{textToDisplay: string}> = (props) => {
     return (
