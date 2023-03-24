@@ -1,5 +1,6 @@
 import { Component, JSX } from "solid-js";
-import "./_textArea.css"
+import "./_textArea.css";
+import './_formFields.css';
 
 interface TextAreaInterface {
     children: JSX.Element, 

@@ -1,6 +1,7 @@
 import { Component, For, JSX } from 'solid-js';
 import Icon from '../icons/Icon';
 import './_select.css';
+import './_formFields.css';
 
 interface SelectInterface {
     handleEvent?: JSX.EventHandlerUnion<HTMLSelectElement, InputEvent>, 

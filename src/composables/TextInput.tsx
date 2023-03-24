@@ -1,4 +1,5 @@
 import { Component, JSX } from "solid-js";
+import './_formFields.css';
 
 interface TextInputInterface {
     handleKeyup?: JSX.EventHandlerUnion<HTMLInputElement, Event> | undefined, 
