@@ -8,7 +8,6 @@ import DecentralizedIDs from "../pages/DecentralizedIDs";
 import IssueCredential from "../pages/IssueCredential";
 import PresentationDefinitions from "../pages/PresentationDefinitions";
 import ResolveDID from "../pages/ResolveDID";
-import Schemas from "../pages/Schemas";
 import CreateCredentialTemplate from "../pages/CreateCredentialTemplate";
 import Modal from "../components/Modal";
 import CreateDID from "../components/CreateDID";
