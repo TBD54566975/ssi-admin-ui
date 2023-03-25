@@ -10,12 +10,16 @@
     "service": "docker-compose -f ssi-service-compose/ssi-service-compose.yml up",
     "start:ssi": "npm run service & npm run start",
     "reset:ssi": "docker-compose -f ssi-service-compose/ssi-service-compose.yml down",
-    "e2e-tests": "npx playwright test"
+    "e2e-tests": "npx playwright test",
+    "lint": "npx eslint ."
   },
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.31.2",
     "@types/qrcode": "^1.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "eslint": "^8.36.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.1",
     "vite-plugin-solid": "^2.5.0",

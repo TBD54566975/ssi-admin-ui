@@ -117,9 +117,10 @@ export const routesForNavbar = routesWithCustomData?.filter(route => route.custo
 
 function removeCustomData(routes: typeof routesWithCustomData): any {
     return routes.map((route: typeof routesWithCustomData[1]) => {
-      const { custom, children, ...rest } = route;
+      const { path, component, children } = route;
       return {
-        ...rest,
+        path,
+        component,
         ...children && { children: removeCustomData(children) }
       }
     });

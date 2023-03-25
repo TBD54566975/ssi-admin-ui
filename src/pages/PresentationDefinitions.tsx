@@ -2,7 +2,7 @@ import type { Component } from 'solid-js';
 import Dialog from '../containers/Dialog';
 import CreateCriteria from './CreateCriteria';
 
-const PresentationDefinitions: Component = (props) => {
+const PresentationDefinitions: Component = () => {
     return (
         <article class="credentials-container">
         <div class="inner-content">

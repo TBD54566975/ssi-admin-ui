@@ -1,5 +1,5 @@
 import { useNavigate } from "@solidjs/router";
-import { Component, createSignal } from "solid-js";
+import { Component } from "solid-js";
 import { DIDDocument, DIDKeyType } from "../facades/decentralizedID.facade";
 import { storeKey } from "../facades/keyStore.facade";
 import Icon from "../icons/Icon";
@@ -16,7 +16,7 @@ const SetDID: Component = () => {
 
     function importTempDID() {
         if (filePicker && filePicker.files) {
-            let reader = new FileReader();
+            const reader = new FileReader();
             reader.readAsText(filePicker.files[0]);
             reader.onload = (e) => {
                 if (typeof reader.result === 'string') {
@@ -31,7 +31,7 @@ const SetDID: Component = () => {
                         storeKey(keyStoreOptions).then(res => console.log(res)).catch(e => console.error(e));
                         localStorage.setItem('importedDID', did.id);
                     } else {
-                        let errors = [];
+                        const errors = [];
                         if (!did) {
                             errors.push('did')
                         }

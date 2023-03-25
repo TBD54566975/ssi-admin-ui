@@ -31,6 +31,9 @@ To run both UI and SSI Service
 #### `npm run reset-service`
 To remove/reset Docker containers
 
+#### `npm run lint`
+To run the linter on project with `typescript-eslint`
+
 ## Introduction
 
 The SSI Admin UI is a GUI for TBD's [SSI Service](https://github.com/TBD54566975/ssi-service). The goal is to provide a visual way to interact with the Verifiable Credential ecosystem via the SSI Service, sans a CLI. The eventual aim is to abstract away as much noise as is reasonable, which means setting a few opiniated defaults throughout the journey. 

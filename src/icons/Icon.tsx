@@ -1,4 +1,4 @@
-import { Component, JSXElement } from "solid-js";
+import { Component } from "solid-js";
 
 export type IconName = 'chevron-up-down' 
     | 'close' 

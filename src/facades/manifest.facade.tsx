@@ -58,13 +58,13 @@ const transformToQueryParams = (filters: ManifestFilters): string => {
     const params = [];
     if (filters.issuer) {
         params.push(`issuer=${encodeURIComponent(filters.issuer)}`)
-    };
+    }
     if (filters.schema) {
         params.push(`schema=${encodeURIComponent(filters.schema)}`)
-    };
+    }
     if (filters.subject) {
         params.push(`subject=${encodeURIComponent(filters.subject)}`)
-    };
+    }
     return params.join('&');
 }
 

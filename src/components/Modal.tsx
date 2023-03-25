@@ -10,7 +10,7 @@ const Modal: Component = () => {
     const navigate = useNavigate();
 
     // hide Import DID button until able to explore did import flow
-    let showImportDID = false;
+    const showImportDID = false;
     let filePicker: HTMLInputElement | undefined;
 
     function openFilePicker() {
@@ -19,9 +19,9 @@ const Modal: Component = () => {
 
     function importTempDID() {
         if (filePicker && filePicker.files) {
-            let reader = new FileReader();
+            const reader = new FileReader();
             reader.readAsText(filePicker.files[0]);
-            reader.onload = (e) => {
+            reader.onload = () => {
                 if (typeof reader.result === 'string') {
                     const { did, privateKeyBase58, keyType}: { did: DIDDocument, privateKeyBase58: string, keyType: string } = JSON.parse(reader.result)
                     const keyStoreOptions = {
@@ -30,7 +30,7 @@ const Modal: Component = () => {
                         base58PrivateKey: privateKeyBase58,
                         type: keyType
                     };
-                    storeKey(keyStoreOptions).then(res => {
+                    storeKey(keyStoreOptions).then(() => {
                         localStorage.setItem('import', keyStoreOptions.id);
                         setStoreDIDs([{ id: keyStoreOptions.id}]);
                         navigate('/d-id');
