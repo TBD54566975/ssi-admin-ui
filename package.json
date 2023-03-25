@@ -10,7 +10,8 @@
     "service": "docker-compose -f ssi-service-compose/ssi-service-compose.yml up",
     "start:ssi": "npm run service & npm run start",
     "reset:ssi": "docker-compose -f ssi-service-compose/ssi-service-compose.yml down",
-    "e2e-tests": "npx playwright test"
+    "e2e-tests": "npx playwright test",
+    "lint": "npx eslint ."
   },
   "license": "MIT",
   "devDependencies": {
