@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import NavSidebar from "../components/NavSidebar";
+import NavSidebar from "./NavSidebar";
 import TextInput from "../composables/TextInput";
 
 const ResolveDID: Component = () => {

@@ -23,10 +23,6 @@ const cardItems = [
     },
 ]
 
-const navItems = [
-    {path: '/credentials', title: '+ Design Credential'}
-]
-
 const Overview: Component = () => {
     return (
             <article>

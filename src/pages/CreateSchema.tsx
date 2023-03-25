@@ -1,4 +1,4 @@
-import { Component, createSignal, JSX, Match, Show, Switch } from "solid-js";
+import { Component, createSignal, Match, Show, Switch } from "solid-js";
 import GroupInput from "../composables/GroupInput";
 import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";

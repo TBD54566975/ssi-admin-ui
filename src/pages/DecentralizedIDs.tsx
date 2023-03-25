@@ -23,7 +23,7 @@ const DecentralizedIDs: Component = () => {
                     </Match>
                     <Match when={getStoreDIDs().length}>
                         <Table ariaLabelledBy={'DIDs'} data={
-                            getStoreDIDs()?.map((document, index) => { 
+                            getStoreDIDs()?.map((document) => { 
                                 return {
                                     'id': document.id,
                                 }

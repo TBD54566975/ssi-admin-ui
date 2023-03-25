@@ -1,14 +1,12 @@
 import { Component, createSignal, For, JSX, Match, Show, Switch } from "solid-js";
-import Table from "../composables/Table";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
-import Dialog from "../containers/Dialog";
 import SidebarLayout from "../containers/SidebarLayout";
-import { createManifest, getManifests } from "../facades/manifest.facade";
+import { createManifest } from "../facades/manifest.facade";
 import { createPresentationDefinition } from "../facades/presentationDefinition.facade";
 import { createSchema, getSchemas } from "../facades/schema.facade";
 import { mockCredentialManifestRequest } from "../mocks/credentialJson";
-import { getDIDAtPosition, getStoreManifests, setStoreManifests } from "../stores/store";
+import { getDIDAtPosition, setStoreManifests } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 import CreateCriteria from "./CreateCriteria";
 import CreateSchema from "./CreateSchema";
@@ -153,14 +151,13 @@ const CreateCredential: Component = () => {
     });
 
     function transformSchema(schema: typeof mockCredentialManifestRequest['schema']) {
-        let result = {
+        return {
             author: getDIDAtPosition(0).id,
             name: schema.schemaName,
             schema: {
                 properties: schema.properties
             }
         }
-        return result
     }
 
     function transformCriteria(criteria: typeof mockCredentialManifestRequest['criteria']) {
@@ -323,7 +320,7 @@ const CreateCredential: Component = () => {
         }
 
         if (currentStep() === steps[2] || currentStep() === steps[3]) {
-            let propName = currentStep() === steps[2] ? 'schema' : 'criteria';
+            const propName = currentStep() === steps[2] ? 'schema' : 'criteria';
 
             saveModelData(data as { [k: string]: any;}, propName);
 

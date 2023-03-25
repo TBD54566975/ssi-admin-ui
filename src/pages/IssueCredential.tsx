@@ -2,25 +2,7 @@ import { Component } from "solid-js";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
 import Dialog from "../containers/Dialog";
-import { mockSchemaResponse } from "../mocks/schemaJson";
 import { formatJSON } from "../utils/helpers";
-
-
-const mockData = checkForNested(mockSchemaResponse.schema.schema);
-
-function checkForNested(schema: { type: string, properties?: unknown }) {
-    if (schema.properties) {
-        const schemaProperties = Object.entries(schema.properties);
-        const schemaMap: [string, unknown][] = schemaProperties.map(property => {
-            if (RegExp(/string|number|boolean/).test(property[1].type)) {
-                return [property[0], ""]
-            } else {
-                return [property[0], checkForNested(property[1])]
-            }
-        })
-        return Object.fromEntries(schemaMap);
-    }
-}
 
 const Issuance: Component = () => {
     return (

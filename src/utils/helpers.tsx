@@ -10,7 +10,7 @@ export function generateQR(text: string, qrCanvas: HTMLCanvasElement | undefined
 
 
 export function copyToClipboard(text: string, copyButton: HTMLButtonElement | undefined) {
-    navigator.clipboard.writeText(text).then(res => {
+    navigator.clipboard.writeText(text).then(() => {
         updateCopyText(copyButton)
     });
 }

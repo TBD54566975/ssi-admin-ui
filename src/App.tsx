@@ -5,8 +5,6 @@ import { routeConfig, routesForNavbar } from './routes/routes';
 import { getDIDAtPosition, setStoreDIDs } from './stores/store';
 import { getDIDs } from './facades/decentralizedID.facade';
 
-
-
 const App: Component = () => {
 
   const navigate = useNavigate();
@@ -19,6 +17,7 @@ const App: Component = () => {
         navigate('/set-did', { replace: true });
     }
   }).catch(e => {
+    console.error(e);
     if(!getDIDAtPosition(0)) {
         navigate('/set-did', { replace: true });
     }
