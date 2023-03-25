@@ -1,5 +1,5 @@
 import { A } from '@solidjs/router';
-import { Component, For, Show } from 'solid-js';
+import { Component, For } from 'solid-js';
 import './_navSidebar.css'
 
 const Sidebar: Component<{navItems?: any[]}> = (props) => {

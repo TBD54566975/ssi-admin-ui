@@ -1,3 +1,7 @@
+.main-content > article > .side-panel-container {
+    flex: 0;
+}
+
 .side-panel-container > aside.side-panel {
     padding: 0;
 }
