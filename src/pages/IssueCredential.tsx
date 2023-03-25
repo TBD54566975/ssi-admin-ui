@@ -1,12 +1,8 @@
-import { Component, Match, Switch } from "solid-js";
-import NavSidebar from "../components/NavSidebar";
-import Select from "../composables/Select";
-import Table from "../composables/Table";
+import { Component } from "solid-js";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
 import Dialog from "../containers/Dialog";
 import { mockSchemaResponse } from "../mocks/schemaJson";
-import { getDIDAtPosition, getStoreManifests } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 
 
@@ -39,8 +35,6 @@ const Issuance: Component = () => {
                 </div>
                 <div>
                     {/* <Select label={"Schema"} options={[{label: mockSchemaResponse.schema.name, value: mockSchemaResponse.id}]} name={"schema"}/> */}
-                    {/* <span class="or-divider">or</span>
-                    <button class="btn btn-primary">Add new schema</button> */}
                 </div>
                 <div style={{display: "flex"}}>
                     <TextArea label={"Subject data"} name={"data"}>

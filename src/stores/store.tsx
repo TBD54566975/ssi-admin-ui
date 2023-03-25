@@ -2,7 +2,6 @@ import { Accessor, createMemo, createRoot } from "solid-js";
 import { createStore } from "solid-js/store";
 import { DIDDocument } from "../facades/decentralizedID.facade";
 import { ManifestOptions } from "../facades/manifest.facade";
-import { mockDID } from "../mocks/didJson";
 
 export const [store, setStore] = createStore<any>({
   dids: [],
@@ -19,7 +18,7 @@ export const [store, setStore] = createStore<any>({
 
 // dids
 
-export const setStoreDIDs = (DIDs: DIDDocument[]) => {
+export const setStoreDIDs = (DIDs: Partial<DIDDocument>[]) => {
   setStore('dids', (prevDIDs: DIDDocument[]) => [...prevDIDs, ...DIDs]);
 }
 
@@ -42,10 +41,6 @@ export const getDIDAtPosition = (index: number) => {
 }
 
 // manifests
-
-// export const setStoreManifests = (manifests: ManifestOptions[]) => {
-//   setStore('manifests', (prevManifests: ManifestOptions[]) => [...manifests]);
-// }
 
 export const setStoreManifests = (manifests: ManifestOptions[]) => {
   let manifestSet: any[] = [];

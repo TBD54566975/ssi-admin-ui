@@ -36,7 +36,6 @@ legend {
     height: calc(100% - 4px);
     display: block;
     position: relative;
-    /* border: var(--border-light-thick); */
     border-radius: 0.25rem;
     box-shadow: var(--box-shadow-complement);
 }

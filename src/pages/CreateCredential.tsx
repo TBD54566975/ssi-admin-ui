@@ -1,6 +1,4 @@
-import { Component, createEffect, createSignal, For, JSX, Match, Show, Switch } from "solid-js";
-import NavSidebar from "../components/NavSidebar";
-import Select from "../composables/Select";
+import { Component, createSignal, For, JSX, Match, Show, Switch } from "solid-js";
 import Table from "../composables/Table";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
@@ -9,17 +7,23 @@ import SidebarLayout from "../containers/SidebarLayout";
 import { createManifest, getManifests } from "../facades/manifest.facade";
 import { createPresentationDefinition } from "../facades/presentationDefinition.facade";
 import { createSchema, getSchemas } from "../facades/schema.facade";
-import Icon from "../icons/Icon";
-import { mockSchemaResponse } from "../mocks/schemaJson";
+import { mockCredentialManifestRequest } from "../mocks/credentialJson";
 import { getDIDAtPosition, getStoreManifests, setStoreManifests } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
 import CreateCriteria from "./CreateCriteria";
 import CreateSchema from "./CreateSchema";
 import "./_credentials.css";
 
+interface FormButtonGroupInterface {
+    handleBack?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, 
+    handleSubmit?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, 
+    showBack?: boolean, 
+    showCta?: boolean, 
+    backText?: string, 
+    ctaText?: string
+}
 
-
-const FormButtonGroup: Component<{handleBack?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, handleSubmit?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, showBack?: boolean, showCta?: boolean, backText?: string, ctaText?: string}> = (props) => {
+const FormButtonGroup: Component<FormButtonGroupInterface> = (props) => {
     return (
         <div class="btn-container-flex">
             <Show when={props.showBack}>
@@ -44,7 +48,14 @@ const FormButtonGroup: Component<{handleBack?: JSX.EventHandlerUnion<HTMLButtonE
     )
 }
 
-const FormGroup: Component<{handleChange?: JSX.EventHandlerUnion<HTMLFormElement, Event> | undefined, handleSubmit?: JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement; }> | undefined, handleBack?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, children: JSX.Element}> = (props) => {
+interface FormGroupInterface {
+    handleChange?: JSX.EventHandlerUnion<HTMLFormElement, Event> | undefined, 
+    handleSubmit?: JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement; }> | undefined, 
+    handleBack?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, 
+    children: JSX.Element
+}
+
+const FormGroup: Component<FormGroupInterface> = (props) => {
     return (
         <form onsubmit={props.handleSubmit} autocomplete="off" onchange={props.handleChange}>
             {props.children}
@@ -57,7 +68,7 @@ const FormGroup: Component<{handleChange?: JSX.EventHandlerUnion<HTMLFormElement
     )
 }
 
-function getDisplayProperties(schema: { properties?: unknown }) {
+function getDisplayProperties(schema: { properties?: { [k: string] : { type: string } } }) {
     if (schema.properties) {
         const schemaProperties = Object.entries(schema.properties);
         const schemaMap: Array<{label: string, path: string[], schema: string, fallback: string}> | any = schemaProperties.map(property => {
@@ -82,14 +93,67 @@ function getDisplayProperties(schema: { properties?: unknown }) {
 }
 
 const CreateCredential: Component = () => {
+    const steps = [
+        {
+            label: 'Name',
+            description: 'Give your Credential a name'
+        },
+        {
+            label: 'Description',
+            description: 'Describe the purpose of your Credential'
+        },
+        {
+            label: 'Properties',
+            description: 'Define properties for the Credential'
+        },
+        {
+            label: 'Criteria',
+            description: 'Define the criteria for applying for this Credential'
+        },
+        {
+            label: 'Display',
+            description: 'Define which properties to display'
+        },
+        {
+            label: 'Style',
+            description: 'Set styles for your credential'
+        }
+    ];
+
     const [ schemas, setSchemas ] = createSignal([]);
 
     const [ schemaProps, setSchemaProps ] = createSignal({});
 
-    function transformSchema(schema: typeof thing['schema']) {
-        let result;
+    const [ currentStep, setCurrentStep ] = createSignal<{label: string, description: string}>(steps[0]);
 
-        result = {
+    const [formValues, setFormValues] = createSignal({});
+
+    const blankCredential = {
+        title: "Title",
+        subtitle: "Subtitle",
+        description: "Description",
+        properties: getDisplayProperties(schemaProps() as any),
+        hero: "",
+        heroAlt: "",
+        thumbnail: "",
+        thumbnailAlt: "",
+        backgroundColor: "#1A1A1A",
+        textColor: "#F8E74F"
+    }
+
+    const [ credentialData, setCredentialData ] = createSignal(blankCredential);
+
+    const closeModal = () => {
+        document.querySelector('dialog')?.close();
+        document.body.classList.remove('p-fixed');
+    }
+
+    getSchemas().then(res => {
+        setSchemas(res.schemas);
+    });
+
+    function transformSchema(schema: typeof mockCredentialManifestRequest['schema']) {
+        let result = {
             author: getDIDAtPosition(0).id,
             name: schema.schemaName,
             schema: {
@@ -99,10 +163,8 @@ const CreateCredential: Component = () => {
         return result
     }
 
-    function transformCriteria(criteria: typeof thing['criteria']) {
-        let result;
-
-        result = {
+    function transformCriteria(criteria: typeof mockCredentialManifestRequest['criteria']) {
+        return {
             author: getDIDAtPosition(0).id,
             format: {
                 jwt_vp: {
@@ -113,112 +175,9 @@ const CreateCredential: Component = () => {
             name: criteria.criteriaName,
             purpose: criteria.criteriaPurpose
         }
-        return result;
     }
 
-    function transformEntry(entry: typeof thing, schemaID: string, presentationDefinition?: {id: string, input_descriptors: { [k: string]: string }[]} ): Submit {
-        let result;
-
-        result = {
-            description: entry.credentialDescription,
-            format: {
-                jwt_vc: {
-                    alg: ["EdDSA"]
-                }
-            },
-            issuerDid: getDIDAtPosition(0).id,
-            name: entry.credentialName,
-            outputDescriptors: [
-                {
-                    description: entry.credentialDescription,
-                    display: {
-                        description: {
-                            text: entry.description
-                        },
-                        properties: JSON.parse(entry.properties),
-                        subtitle: {
-                            text: entry.subtitle
-                        },
-                        title: {
-                            text: entry.title
-                        }
-                    },
-                    id: "0",
-                    name: entry.credentialName,
-                    schema: schemaID,
-                    styles: {
-                        background: {
-                            color: entry.backgroundColor
-                        },
-                        hero: {
-                            alt: entry["hero-alt"],
-                            uri: entry.hero
-                        },
-                        text: {
-                            color: entry.textColor
-                        },
-                        thumbnail: {
-                            alt: entry["thumbnail-alt"],
-                            uri: entry.thumbnail
-                        }
-                    }
-                },
-            ],
-            ...presentationDefinition && { presentationDefinition }
-
-        }
-        return result;
-    }
-
-    const thing = {
-        "credentialName": "Employed",
-        "credentialDescription": "Descript",
-        "schema": {
-            "schemaName": "SChemanmae",
-            "editorView": "richEditor",
-            "propertyName-0": "firstname",
-            "propertyType-0": "string",
-            "properties": {
-                "firstname": {
-                    "type": "string"
-                }
-            }
-        },
-        "criteria": {
-            "criteriaName": "critrera",
-            "criteriaPurpose": "purposeofcrtier",
-            "properties": {
-                "input_descriptors": [
-                    {
-                        "id": "",
-                        "constraints": {
-                            "fields": [
-                                {
-                                    "path": [
-                                        "$.vc.firstName"
-                                    ]
-                                }
-                            ]
-                        }
-                    }
-                ]
-            }
-        },
-        "title": "Employed",
-        "subtitle": "SChemanmae",
-        "description": "Descript",
-        "properties": "[\n    {\n        \"label\": \"firstname\",\n        \"path\": [\n            \"$.firstname\",\n            \"$.vc.firstname\"\n        ],\n        \"schema\": {\n            \"type\": \"string\"\n        },\n        \"fallback\": \"\"\n    }\n]",
-        "background": "#1A1A1A",
-        "backgroundColor": "#1a1a1a",
-        "text": "#F8E74F",
-        "textColor": "#f8e74f",
-        "hero": "https://www.tbd.website/images/home-glitch-bottom-desktop-dark.svg",
-        "hero-alt": "dasdasda",
-        "thumbnail": "https://developer.tbd.website/img/tbd-logo.svg",
-        "thumbnail-alt": "adadada"
-    }
-
-    interface Submit {
+    interface CredentialManifestRequest {
         description?: string,
         format: {
             [k: string]: {
@@ -296,104 +255,63 @@ const CreateCredential: Component = () => {
         }
     }
 
-    interface Manifest {
-        name: string,
-        description: string,
-        outputDescriptors: [
-            {
-                description: string,
-                display: {
-                    description: {
-                        text: string
-                    },
-                    title: {
-                        text: string
-                    },
-                    subtitle: {
-                        text: string
-                    },
-                    properties: [
-                        {
-                            label: string,
-                            path: string[],
-                            schema: {
-                                format: {
-                                    [k: string]: string
-                                },
-                                type: string
-                            },
-                            fallback: string,
-                            text: string
-                        }
-                    ]
-                },
-                id: string,
-                schema: string,
-                name: string,
-                styles: {
-                    background: {
-                        color: string
-                    },
-                    text: {
-                        color: string
-                    },
-                    hero: {
-                        alt: string,
-                        uri: string
-                    },
-                    thumbnail: {
-                        alt: string,
-                        uri: string
-                    }
+    function transformEntry(
+        entry: typeof mockCredentialManifestRequest, 
+        schemaID: string, 
+        presentationDefinition?: {
+            id: string, 
+            input_descriptors: { [k: string]: string }[]
+        } 
+    ): CredentialManifestRequest {
+        return {
+            description: entry.credentialDescription,
+            format: {
+                jwt_vc: {
+                    alg: ["EdDSA"]
                 }
-            }
-        ],
-        presentationDefinition: {
-            [k: string]: any
+            },
+            issuerDid: getDIDAtPosition(0).id,
+            name: entry.credentialName,
+            outputDescriptors: [
+                {
+                    description: entry.credentialDescription,
+                    display: {
+                        description: {
+                            text: entry.description
+                        },
+                        properties: JSON.parse(entry.properties),
+                        subtitle: {
+                            text: entry.subtitle
+                        },
+                        title: {
+                            text: entry.title
+                        }
+                    },
+                    id: "0",
+                    name: entry.credentialName,
+                    schema: schemaID,
+                    styles: {
+                        background: {
+                            color: entry.backgroundColor
+                        },
+                        hero: {
+                            alt: entry["hero-alt"],
+                            uri: entry.hero
+                        },
+                        text: {
+                            color: entry.textColor
+                        },
+                        thumbnail: {
+                            alt: entry["thumbnail-alt"],
+                            uri: entry.thumbnail
+                        }
+                    }
+                },
+            ],
+            ...presentationDefinition && { presentationDefinition }
         }
     }
 
-    getSchemas().then(res => {
-        setSchemas(res.schemas);
-        // setSelectedSchema(res.schemas[0]);
-        // setSchemaProps(res.schemas[0].schema.schema);
-    });
-
-    const steps = [
-        {
-            label: 'Name',
-            description: 'Give your Credential a name'
-        },
-        {
-            label: 'Description',
-            description: 'Describe the purpose of your Credential'
-        },
-        {
-            label: 'Properties',
-            description: 'Define properties for the Credential'
-        },
-        {
-            label: 'Criteria',
-            description: 'Define the criteria for applying for this Credential'
-        },
-        {
-            label: 'Display',
-            description: 'Define which properties to display'
-        },
-        {
-            label: 'Style',
-            description: 'Set styles for your credential'
-        }
-    ];
-
-    const [ currentStep, setCurrentStep ] = createSignal<{label: string, description: string}>(steps[0]);
-
-    const closeModal = () => {
-        document.querySelector('dialog')?.close();
-        document.body.classList.remove('p-fixed');
-    }
-
-    const [formValues, setFormValues] = createSignal({});
 
     function handleSubmit(event: Event & { submitter: HTMLElement; } & { currentTarget: HTMLFormElement; target: Element; }) {
         event.preventDefault();
@@ -468,20 +386,6 @@ const CreateCredential: Component = () => {
                 properties: JSON.parse(properties),
             } 
         }));
-
-    }
-
-    const blankCredential = {
-        title: "Title",
-        subtitle: "Subtitle",
-        description: "Description",
-        properties: getDisplayProperties(schemaProps() as any),
-        hero: "",
-        heroAlt: "",
-        thumbnail: "",
-        thumbnailAlt: "",
-        backgroundColor: "#1A1A1A",
-        textColor: "#F8E74F"
     }
 
     function isValidHexColor(hexColor: string) {
@@ -491,9 +395,6 @@ const CreateCredential: Component = () => {
         const hexValue = hexColor.slice(1);
         return RegExp(/^[0-9A-Fa-f]{6}$/).test(hexValue);
     }
-
-    const [ credentialData, setCredentialData ] = createSignal(blankCredential);
-
 
     return (
         <SidebarLayout sidebarSteps={            
@@ -603,7 +504,6 @@ const CreateCredential: Component = () => {
                                         description={"Only valid 6-character hexadecimal values are allowed eg. #FFFFFF"}
                                         handleEvent={(e) => {
                                         if (isValidHexColor(e.currentTarget.value)) {
-                                            // setBackgroundColor(e.currentTarget.value)
                                             setCredentialData((prevValues) => ({ ...prevValues, backgroundColor: e.currentTarget.value }))
                                         } else {
                                             setCredentialData((prevValues) => ({ ...prevValues, backgroundColor: prevValues['backgroundColor'] }))
@@ -688,8 +588,22 @@ const CreateCredential: Component = () => {
                     <div class="secondary-sidebar">
                         <div class="credential-sidebar-inner">
                             <div class="credential-preview" style={{background: `${credentialData().backgroundColor}`, color: `${credentialData().textColor}`}}>
-                                {credentialData().thumbnail && <div style={{"background-image": `url(${credentialData().thumbnail})`}} class="thumbnail credential-section" role="img" aria-label={credentialData().thumbnailAlt}></div>}
-                                {credentialData().hero && <div style={{"background-image": `url(${credentialData().hero})`}} class="hero" role="img" aria-label={credentialData().heroAlt}></div>}
+                                {credentialData().thumbnail && 
+                                    <div 
+                                        style={{"background-image": `url(${credentialData().thumbnail})`}} 
+                                        class="thumbnail credential-section" 
+                                        role="img" 
+                                        aria-label={credentialData().thumbnailAlt}
+                                    ></div>
+                                }
+                                {credentialData().hero && 
+                                    <div 
+                                        style={{"background-image": `url(${credentialData().hero})`}} 
+                                        class="hero" 
+                                        role="img" 
+                                        aria-label={credentialData().heroAlt}
+                                    ></div>
+                                }
                                 <div class="credential-section">
                                     <div class="title">{credentialData().title}</div>
                                     <div class="subtitle">{credentialData().subtitle}</div>
@@ -714,51 +628,4 @@ const CreateCredential: Component = () => {
     )
 }
 
-const CreateCredentialTemplate: Component = () => {
-
-    if (!getStoreManifests().length) {
-        getManifests().then(res =>{
-            setStoreManifests(res.manifests);
-        })
-    }
-
-    return (
-        <article class="credentials-container">
-            <div class="inner-content">
-                <div class="table-header">
-                    <h1>Credentials</h1>
-                    <Dialog ctaText={"Create Credential"}>
-                        <CreateCredential />
-                    </Dialog>
-                </div>
-                <Switch>
-                    <Match when={!getStoreManifests().length}>
-                        <div class="container-fallback">
-                            No credentials to display
-                        </div>
-                    </Match>
-                    <Match when={getStoreManifests().length}>
-                        <Table ariaLabelledBy={"Credentials"} data={getStoreManifests().map(credentialManifest => {
-                            const manifest = credentialManifest['credential_manifest'];
-                            return {
-                                "styles": <div style={{
-                                    display: "flex", 
-                                    "background-color": manifest.output_descriptors[0].styles.background.color,
-                                    color: manifest.output_descriptors[0].styles.text.color,
-                                    "border-radius": "4px",
-                                    padding: "1rem",
-                                    margin: "0.5rem",
-                                    width: "120px"
-                                }}>{manifest.name?.[0]}</div>,
-                                "name": manifest.name,
-                                "description": manifest.description
-                            }
-                        })} />
-                    </Match>
-                </Switch>
-            </div>
-        </article>
-    )
-}
-
-export default CreateCredentialTemplate;
+export default CreateCredential;

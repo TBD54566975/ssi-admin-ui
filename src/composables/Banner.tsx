@@ -1,4 +1,4 @@
-import { Component, Match, Switch } from "solid-js";
+import { Component } from "solid-js";
 import Icon, { IconName } from "../icons/Icon";
 import "./_banner.css";
 

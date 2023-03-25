@@ -1,19 +1,13 @@
 import { Component, createSignal, JSX, Match, Show, Switch } from "solid-js";
-import NavSidebar from "../components/NavSidebar";
 import GroupInput from "../composables/GroupInput";
 import Select from "../composables/Select";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
-import { getSchemas } from "../facades/schema.facade";
-import { mockSchemaRequest, mockSchemaResponse } from "../mocks/schemaJson";
-import { getDIDAtPosition } from "../stores/store";
 import { formatJSON } from "../utils/helpers";
-import "./_schemas.css";
 
 const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, formValues?: any, schemaProps?: any}> = (props) => {
 
     const [schemaProperties, setSchemaProperties] = createSignal(props.formValues?.['properties'] || {"": { type: 'string' }});
-
 
     const isNestedJson = (): boolean => {
         if (schemaProperties()) {
@@ -28,7 +22,6 @@ const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, 
 
     const [editorView, setEditorView] = createSignal(props.formValues?.['editorView'] || (isNestedJson() ? 'jsonEditor' : 'richEditor'));
 
-
     const setProperties = (e: string | any) => {
         if (typeof e === 'string') {
             setSchemaProperties(JSON.parse(e));  
@@ -36,8 +29,6 @@ const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, 
             setSchemaProperties(e); 
         }
     }
-
-
 
     return (
         <article>
@@ -47,14 +38,14 @@ const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, 
                         label={"Schema"} 
                         name={"schemaID"} 
                         options={
-                            props.schemas?.map((schema: { schema?: any; id?: any; }, index: number) => {
+                            props.schemas?.map((schema: { schema?: any; id?: any; }) => {
                                 return {
                                     label: schema.schema.name, 
                                     value: schema.schema.id,
                                     selected: props.formValues?.['schemaID'] === schema.schema.id
-                                    }
-                                }) as { label: string; value: string }[]
-                            } 
+                                }
+                            })
+                        } 
                         handleEvent={(e) => {
                             const selectedSchema = props.schemas[props.schemas.findIndex((schema: any) => schema.schema.id === e.currentTarget.value)];
                             setSchemaProperties(selectedSchema.schema.schema.properties); 
@@ -63,7 +54,6 @@ const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, 
                     />  : 
                     <div>You have no presets to choose from.</div> 
                 }
-                {/* <button class="btn btn-primary">Add new</button> */}
                 <span class="or-divider">or</span>
                 <h3>Create a Schema</h3>
                 <div>
@@ -74,7 +64,6 @@ const CreateSchema: Component<{schemas: any, handleChange: (arg0: any) => void, 
                             placeholder={"My Awesome Schema"}
                             value={props.formValues?.['schemaName']}/>
                     </div>
-                    {/* <h3>Add properties</h3> */}
                     <Select 
                         disabled={isNestedJson()} 
                         handleEvent={(e) => setEditorView(e.currentTarget.value)} 

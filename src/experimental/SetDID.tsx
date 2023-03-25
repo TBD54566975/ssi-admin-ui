@@ -1,23 +1,18 @@
 import { useNavigate } from "@solidjs/router";
 import { Component, createSignal } from "solid-js";
-import Card from "../composables/Card";
 import { DIDDocument, DIDKeyType } from "../facades/decentralizedID.facade";
 import { storeKey } from "../facades/keyStore.facade";
 import Icon from "../icons/Icon";
-import { getDIDAtPosition } from "../stores/store";
 import "./_setDID.css";
 
 const SetDID: Component = () => {
-    let filePicker: HTMLInputElement | undefined;
-    
     const navigate = useNavigate();
 
-    const [importError, setImportError] = createSignal();
+    let filePicker: HTMLInputElement | undefined;
 
     function openFilePicker() {
         filePicker?.click();
     }
-
 
     function importTempDID() {
         if (filePicker && filePicker.files) {
@@ -46,7 +41,7 @@ const SetDID: Component = () => {
                         if (!keyType) {
                             errors.push('keyType')
                         }
-                        setImportError(errors);
+                        console.error(e, errors);
                     }
                 }
             }
@@ -62,8 +57,8 @@ const SetDID: Component = () => {
                     {/* <p>If you're new to D-IDs, get started by creating a new one. You'll be given secret key material to download as a backup.</p>
                     <p>
                         <a href="#" target="blank">Learn what D-IDs are</a>
-                    </p> */}
-                    {/* <p>If you're new to D-IDs, you can create one. You'll need a D-ID to use the dashboard. <a href="#" target="blank">Learn what D-IDs are</a></p>
+                    </p>
+                    <p>If you're new to D-IDs, you can create one. You'll need a D-ID to use the dashboard. <a href="#" target="blank">Learn what D-IDs are</a></p>
                     <div class="button-group">
                         <div>
                             <button 
@@ -73,12 +68,12 @@ const SetDID: Component = () => {
                                 <Icon name="plus" /> Create new
                             </button>
                         </div>
-                        <span class="or-divider">or</span> */}
-                        {/* <p>If you already have a D-ID, import your D-ID document and key material as a JSON file.</p>
+                        <span class="or-divider">or</span>
+                        <p>If you already have a D-ID, import your D-ID document and key material as a JSON file.</p>
                         <p>
                             <a href="#" target="blank">See an example JSON file</a>
-                        </p> */}
-                        {/* <p>Already have a D-ID? See an <a href="#" target="blank">example JSON import file</a></p>
+                        </p>
+                        <p>Already have a D-ID? See an <a href="#" target="blank">example JSON import file</a></p>
                         <div>
                             <input 
                                 oninput={() => importTempDID() } 
@@ -118,7 +113,6 @@ const SetDID: Component = () => {
                             <div class="button-card-icon">
                                 <Icon name={'arrow-down-tray'} />
                             </div>
-                            {/* <p class="subheading">I already have a D&#8209;ID</p> */}
                             <p class="subheading">I have a D-ID</p>
                             <a href="#" target="blank">See an example JSON</a>
                             <p>Import your D-ID document and private key material as JSON.</p>

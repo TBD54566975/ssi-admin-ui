@@ -1,10 +1,17 @@
-import { Component, createEffect, createSignal, For, JSX, Show } from "solid-js";
+import { Component, createSignal, For, JSX } from "solid-js";
 import Icon from "../icons/Icon";
 import Select from "./Select";
 import TextInput from "./TextInput";
 import "./_groupInput.css"
 
-const GroupInput: Component<{setProperties?: any, handleSelectEvent?: JSX.EventHandlerUnion<HTMLSelectElement, InputEvent>, handleTextEvent?: JSX.EventHandlerUnion<HTMLInputElement, Event>, properties: { [key: string] : { type: string } }}> = (props) => {
+interface GroupInputInterface {
+    setProperties?: any, 
+    handleSelectEvent?: JSX.EventHandlerUnion<HTMLSelectElement, InputEvent>, 
+    handleTextEvent?: JSX.EventHandlerUnion<HTMLInputElement, Event>, 
+    properties: { [key: string] : { type: string } }
+}
+
+const GroupInput: Component<GroupInputInterface> = (props) => {
     const [propertyList, setPropertyList] = createSignal(Object.entries(props.properties));
 
     return (

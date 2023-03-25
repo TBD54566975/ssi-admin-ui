@@ -1,19 +1,13 @@
-import { Navigate, RouteDefinition, useIsRouting } from "@solidjs/router";
-import Applications from "../pages/Applications";
-import CreateSchema from "../pages/CreateSchema";
-import Credentials from "../pages/Credentials";
-import CredentialTemplates from "../pages/CredentialTemplates";
+import { Navigate, RouteDefinition } from "@solidjs/router";
 import Overview from "../pages/Overview";
 import DecentralizedIDs from "../pages/DecentralizedIDs";
 import IssueCredential from "../pages/IssueCredential";
 import PresentationDefinitions from "../pages/PresentationDefinitions";
-import ResolveDID from "../pages/ResolveDID";
-import Schemas from "../pages/Schemas";
-import CreateCredentialTemplate from "../pages/CreateCredentialTemplate";
-import Submissions from "../pages/Submissions";
+import ResolveDID from "../experimental/ResolveDID";
 import Modal from "../components/Modal";
 import CreateDID from "../components/CreateDID";
-import SetDID from "../pages/SetDID";
+import SetDID from "../experimental/SetDID";
+import Credentials from "../pages/Credentials";
 
 
 export const routesWithCustomData = [
@@ -30,7 +24,7 @@ export const routesWithCustomData = [
     },
     {
         path: 'credentials',
-        component: CreateCredentialTemplate,
+        component: Credentials,
         custom: {
             title: 'Credentials'
         },
@@ -50,14 +44,14 @@ export const routesWithCustomData = [
             },
             {
                 path: 'automate',
-                component: Credentials,
+                component: IssueCredential,
                 custom: {
                     title: 'Automate'
                 }
             },
             {
                 path: 'view-all',
-                component: Credentials,
+                component: IssueCredential,
                 custom: {
                     title: 'All'
                 }
@@ -79,14 +73,14 @@ export const routesWithCustomData = [
             },
             {
                 path: 'verify',
-                component: Credentials,
+                component: PresentationDefinitions,
                 custom: {
                     title: 'Verify'
                 }
             },
             {
                 path: 'view-all',
-                component: Credentials,
+                component: PresentationDefinitions,
                 custom: {
                     title: 'All'
                 }

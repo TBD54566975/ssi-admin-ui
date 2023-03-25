@@ -21,6 +21,10 @@
     min-width: 150px;
 }
 
+.card-contain .card-icon {
+    margin: 0.5rem;
+}
+
 .card-contain .link-with-icon {
     display: flex;
     align-items: center;
@@ -62,7 +66,4 @@
 }
 .card-group a[target="blank"]::after {
     display: none;
-}
-.card-icon {
-    margin: 0.5rem;
 }

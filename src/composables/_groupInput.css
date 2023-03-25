@@ -10,3 +10,13 @@
 .group-inputs > .field-interactive-btn.visible-on-disabled:disabled {
     opacity: 0.25;
 }
+
+.group-inputs {
+    display: flex;
+    gap: var(--spacing-unit);
+}
+
+.group-inputs input,
+.group-inputs select {
+    font-family: var(--tbd-mono);
+}

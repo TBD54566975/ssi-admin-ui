@@ -1,22 +1,13 @@
 import { Component, createSignal, Match, Show, Switch } from "solid-js";
 import Banner from "../composables/Banner";
-import DownloadLink from "../composables/DownloadLink";
-import RadioCardSet from "../composables/RadioCardSet";
 import Select from "../composables/Select";
-import Stepfinder from "../composables/Stepfinder";
 import TextInput from "../composables/TextInput";
-import TextSample from "../composables/TextSample";
 import Accordion from "../containers/Accordion";
-import { DIDMethod, DIDKeyType, keyTypeOptions, DIDDocument, createDID, DIDDocumentWithKey } from "../facades/decentralizedID.facade";
-import Key from '../assets/img/key-black.svg';
-import Password from '../assets/img/password-black.svg';
-import Lock from '../assets/img/lock-black.svg';
-import { DIDMethodOptions } from '../facades/decentralizedID.facade';
+import { DIDMethod, DIDKeyType, keyTypeOptions, createDID } from "../facades/decentralizedID.facade";
 import { setStoreDIDs } from "../stores/store";
 import "./_createDID.css";
-import Dialog from "../containers/Dialog";
 import SidebarLayout from "../containers/SidebarLayout";
-import { Navigate, useNavigate } from "@solidjs/router";
+import { useNavigate } from "@solidjs/router";
 import { formatJSON } from "../utils/helpers";
 
 const CreateDID: Component = () => {
@@ -165,44 +156,3 @@ const CreateDID: Component = () => {
 }
 
 export default CreateDID;
-
-
-
-
-{/* <RadioCardSet 
-    options={[
-        {
-            label: "Key", 
-            value: DIDMethodOptions[0], 
-            description: "Better for simplicity",
-            imageSrc: Key,
-            selected: true
-        }, {
-            label: "Web", 
-            value: DIDMethodOptions[1], 
-            description: "Better for flexibility", 
-            footerLabel: 'Recommended',
-            imageSrc: Password
-        }, {
-            label: "Ion", 
-            value: "ion", 
-            description: "Better for enhanced functionality", 
-            disabled: true, 
-            footerLabel: 'Not yet available',
-            imageSrc: Lock
-        }
-    ]} 
-    name={"didType"} 
-    legend={"What kind of D-ID do you want to create?"} 
-    itemsPerRow={3}
-    handleEvent={(e) => setDidMethod(e.currentTarget.value as DIDMethod)}
-/>
-
-{ didMethod() === DIDMethodOptions[1] && 
-    <TextInput 
-        handleEvent={(e) => {setDidWebID(e.currentTarget.value)}} 
-        name={"webID"} 
-        label={"Website URL"} 
-        placeholder={"example.com"}
-    />
-} */}

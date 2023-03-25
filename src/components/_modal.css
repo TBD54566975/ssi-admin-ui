@@ -6,10 +6,6 @@
     margin-right: calc(var(--spacing-unit) / 2);
     min-width: 150px;
 }
-.dialog-sidebar {
-    flex: 0 1 25%;
-}
-
 
 .modal-did {
     height: 100dvh;

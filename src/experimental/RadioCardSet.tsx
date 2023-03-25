@@ -1,6 +1,6 @@
 import { Component, For, JSX } from "solid-js";
-import Icon, { IconName } from "../icons/Icon";
 import "./_radioCardSet.css";
+import './composables/_formFields.css';
 
 const RadioCardSet: Component<{handleEvent?: JSX.EventHandlerUnion<HTMLInputElement, InputEvent>, options: {value: string, label: string, description?: string, imageSrc?: string, disabled?: boolean, footerLabel?: string, selected?: boolean}[], name: string, legend: string, description?: string, optional?: boolean, itemsPerRow?: 1 | 2 | 3}> = (props) => {
     return (
@@ -31,3 +31,43 @@ const RadioCardSet: Component<{handleEvent?: JSX.EventHandlerUnion<HTMLInputElem
 }
 
 export default RadioCardSet;
+
+
+// Usage: CreateDID Component for selecting DID Method
+{/* <RadioCardSet 
+    options={[
+        {
+            label: "Key", 
+            value: DIDMethodOptions[0], 
+            description: "Better for simplicity",
+            imageSrc: Key,
+            selected: true
+        }, {
+            label: "Web", 
+            value: DIDMethodOptions[1], 
+            description: "Better for flexibility", 
+            footerLabel: 'Recommended',
+            imageSrc: Password
+        }, {
+            label: "Ion", 
+            value: "ion", 
+            description: "Better for enhanced functionality", 
+            disabled: true, 
+            footerLabel: 'Not yet available',
+            imageSrc: Lock
+        }
+    ]} 
+    name={"didType"} 
+    legend={"What kind of D-ID do you want to create?"} 
+    itemsPerRow={3}
+    handleEvent={(e) => setDidMethod(e.currentTarget.value as DIDMethod)}
+/>
+
+{ didMethod() === DIDMethodOptions[1] && 
+    <TextInput 
+        handleEvent={(e) => {setDidWebID(e.currentTarget.value)}} 
+        name={"webID"} 
+        label={"Website URL"} 
+        placeholder={"example.com"}
+    />
+} */}

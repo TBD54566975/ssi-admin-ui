@@ -1,5 +1,6 @@
 import { Component, onMount } from "solid-js";
 import { generateQR } from "../utils/helpers";
+import "./_qrCode.css";
 
 const QRCode: Component<{stringToGenerate: string}> = (props) => {
     let qrCanvas: HTMLCanvasElement | undefined;

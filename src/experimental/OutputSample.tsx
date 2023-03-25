@@ -1,5 +1,5 @@
 import { Component, Show } from 'solid-js';
-import { updateCopyText, copyToClipboard, resetCopyText } from '../utils/helpers';
+import { updateCopyText } from '../utils/helpers';
 import CopyButton from './CopyButton';
 import './_outputSample.css';
 

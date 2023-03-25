@@ -1,4 +1,4 @@
-import { Component, JSX, onCleanup, onMount } from "solid-js";
+import { Component, JSX, onCleanup } from "solid-js";
 import Icon from "../icons/Icon";
 import "./_dialog.css";
 

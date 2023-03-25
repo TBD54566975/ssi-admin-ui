@@ -190,10 +190,6 @@ button {
   position: fixed;
 }
 
-.qr-frame {
-  border: var(--border-light);
-}
-
 .btn-container-flex {
   display: flex;
 }
