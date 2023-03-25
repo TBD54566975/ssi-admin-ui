@@ -3,4 +3,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint'],
     root: true,
+    rules: {
+        "@typescript-eslint/no-explicit-any": "off", // While prototyping, ignore `no-explicit-any` rule. Remove when done prototyping.
+    }
   };
