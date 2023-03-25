@@ -1,10 +1,7 @@
-import { Component, createSignal, For, Show } from 'solid-js';
-import { useRoutes, Link, useRouteData, useNavigate, NavLink } from "@solidjs/router";
-
+import { Component, For } from 'solid-js';
+import { useRoutes, useNavigate, NavLink } from "@solidjs/router";
 import './App.css';
 import { routeConfig, routesForNavbar } from './routes/routes';
-import InfoPanel from './experimental/InfoPanel';
-import Modal from './components/Modal';
 import { getDIDAtPosition, setStoreDIDs } from './stores/store';
 import { getDIDs } from './facades/decentralizedID.facade';
 
@@ -47,7 +44,6 @@ const App: Component = () => {
       </header>
       <main class="main-content">
           <Routes />
-          {/* <InfoPanel did={getDIDAtPosition(0)?.id} /> */}
       </main>
   </div>
   )
