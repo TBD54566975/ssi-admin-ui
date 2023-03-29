@@ -95,12 +95,12 @@ const CreateDID: Component = () => {
                                                 value: option
                                             }
                                         })} 
-                                    label={"Encryption algorithm"} 
+                                    label={"Signature algorithm"} 
                                     description={"The cryptographic algorithm family to use to create your D-ID"}
                                     name={"keyType"} 
                                     firstIsDefault
                                 />
-                                <a href="#" target="blank">Learn about key encryption algorithms</a>
+                                <a href="#" target="blank">Learn about key signature algorithms</a>
                             </Accordion>
                         </Match>
 
