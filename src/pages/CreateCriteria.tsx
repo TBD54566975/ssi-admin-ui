@@ -63,7 +63,7 @@ const CreateCriteria: Component<{formValues?: { [k: string]: string | undefined;
                     </div>
                     <div>
                         <TextInput 
-                            label={"Purpos of Presentation Definition"} 
+                            label={"Purpose of Presentation Definition"} 
                             name={"criteriaPurpose"} 
                             placeholder={"Will use this awesome criteria to verify an awesome Credential"}
                             value={props.formValues?.['criteriaPurpose']}
