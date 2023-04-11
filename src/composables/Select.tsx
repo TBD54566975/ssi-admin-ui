@@ -33,7 +33,7 @@ const Select: Component<SelectInterface>  = (props) => {
                     id={props.name} 
                     disabled={props.disabled}
                 >
-                    <option disabled selected>Select one</option>
+                    <option disabled selected={!props.firstIsDefault}>Select one</option>
                     <For each={props.options}>
                         {(option, index) =>
                             <option 

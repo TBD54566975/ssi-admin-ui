@@ -1,6 +1,7 @@
-import { Component, createSignal, For, JSX, Match, Show, Switch } from "solid-js";
+import { Component, createSignal, For, Match, Show, Switch } from "solid-js";
 import TextArea from "../composables/TextArea";
 import TextInput from "../composables/TextInput";
+import { FormGroup } from "../containers/FormGroup";
 import SidebarLayout from "../containers/SidebarLayout";
 import { createManifest } from "../facades/manifest.facade";
 import { createPresentationDefinition } from "../facades/presentationDefinition.facade";
@@ -12,59 +13,6 @@ import CreateCriteria from "./CreateCriteria";
 import CreateSchema from "./CreateSchema";
 import "./_credentials.css";
 
-interface FormButtonGroupInterface {
-    handleBack?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, 
-    handleSubmit?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, 
-    showBack?: boolean, 
-    showCta?: boolean, 
-    backText?: string, 
-    ctaText?: string
-}
-
-const FormButtonGroup: Component<FormButtonGroupInterface> = (props) => {
-    return (
-        <div class="btn-container-flex">
-            <Show when={props.showBack}>
-                <button 
-                    onclick={props.handleBack} 
-                    class="btn btn-outline"
-                >
-                    { props.backText || 'Back' }
-                </button>
-            </Show>
-            <Show when={props.showCta}>
-                <button 
-                    id="submit-btn"
-                    type="submit"
-                    class="btn btn-primary"
-                    onclick={props.handleSubmit}
-                >
-                    { props.ctaText || 'Next' }
-                </button>
-            </Show>
-        </div>
-    )
-}
-
-interface FormGroupInterface {
-    handleChange?: JSX.EventHandlerUnion<HTMLFormElement, Event> | undefined, 
-    handleSubmit?: JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement; }> | undefined, 
-    handleBack?: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent> | undefined, 
-    children: JSX.Element
-}
-
-const FormGroup: Component<FormGroupInterface> = (props) => {
-    return (
-        <form onsubmit={props.handleSubmit} autocomplete="off" onchange={props.handleChange}>
-            {props.children}
-            <FormButtonGroup 
-                handleBack={props.handleBack}
-                showBack
-                showCta
-            />
-        </form>
-    )
-}
 
 function getDisplayProperties(schema: { properties?: { [k: string] : { type: string } } }) {
     if (schema.properties) {
@@ -118,11 +66,11 @@ const CreateCredential: Component = () => {
         }
     ];
 
+    const [ currentStep, setCurrentStep ] = createSignal<{label: string, description: string}>(steps[0]);
+
     const [ schemas, setSchemas ] = createSignal([]);
 
     const [ schemaProps, setSchemaProps ] = createSignal({});
-
-    const [ currentStep, setCurrentStep ] = createSignal<{label: string, description: string}>(steps[0]);
 
     const [formValues, setFormValues] = createSignal({});
 
